@@ -1,0 +1,24 @@
+parameters: {}
+environment: {}
+packages:
+    - name: polymarket
+      shared: false
+      environment: {}
+      parameters: {}
+      annotations: {}
+      functions:
+        - name: markets
+          binary: false
+          main: ""
+          runtime: python:default
+          web: true
+          webSecure: false
+          parameters: {}
+          environment: {}
+          annotations: {}
+          limits: {}
+          triggers:
+          - name: trigger-markets
+            sourceType: scheduler
+            sourceDetails:
+              cron: "*/5 * * * *"
