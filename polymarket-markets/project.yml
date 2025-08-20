@@ -3,7 +3,9 @@ environment: {}
 packages:
     - name: polymarket
       shared: false
-      environment: {}
+      environment:
+        MONGO_URI: ${DATABASE_URL}
+        MONGO_DB: "polymarket"
       parameters: {}
       annotations: {}
       functions:
@@ -14,9 +16,11 @@ packages:
           web: true
           webSecure: false
           parameters: {}
-          environment: {}
+          environment: 
+            MONGO_COLLECTION: "markets"
           annotations: {}
-          limits: {}
+          limits: 
+            timeout: 100000
           triggers:
           - name: trigger-markets
             sourceType: scheduler
