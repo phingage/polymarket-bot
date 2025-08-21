@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Polymarket Bot Control",
   description: "Dashboard per il controllo del bot Polymarket",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

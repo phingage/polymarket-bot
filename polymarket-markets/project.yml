@@ -25,4 +25,4 @@ packages:
           - name: trigger-markets
             sourceType: scheduler
             sourceDetails:
-              cron: "*/5 * * * *"
+              cron: "25 23 * * *"

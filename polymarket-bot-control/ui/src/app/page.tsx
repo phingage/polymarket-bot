@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import LoginPage from '../components/LoginPage'
+import Logo from '../components/Logo'
+import Notification from '../components/Notification'
 
 interface Market {
   id: string
@@ -29,6 +31,11 @@ export default function MarketsPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [sortField, setSortField] = useState<keyof Market | ''>('')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const [notification, setNotification] = useState<{
+    show: boolean
+    message: string
+    type: 'success' | 'error' | 'info' | 'warning'
+  }>({ show: false, message: '', type: 'info' })
 
   const fetchMarkets = useCallback(async () => {
     try {
@@ -46,9 +53,19 @@ export default function MarketsPage() {
       setMarkets(data)
       setCurrentPage(1) // Reset alla prima pagina quando vengono caricati nuovi dati
       setError(null)
+      setNotification({
+        show: true,
+        message: `${data.length} mercati aggiornati con successo`,
+        type: 'success'
+      })
     } catch (err) {
       setError('Errore nel caricamento dei mercati')
       console.error(err)
+      setNotification({
+        show: true,
+        message: 'Errore nel caricamento, usando dati di esempio',
+        type: 'warning'
+      })
       // Fallback ai dati mock in caso di errore
       const mockMarkets: Market[] = [
         {
@@ -169,40 +186,86 @@ export default function MarketsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Caricamento mercati...</div>
+      <div className="min-h-screen bg-primary-flat flex items-center justify-center">
+        <div className="text-center">
+          <Logo size="xl" className="mx-auto mb-6 pulse-gentle" />
+          <div className="flex items-center justify-center space-x-3">
+            <svg className="animate-spin h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span className="text-xl text-gray-700 font-medium">Caricamento mercati...</span>
+          </div>
+          <p className="text-sm text-gray-600 mt-2">
+            Connessione al bot di liquidità in corso
+          </p>
+        </div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-xl text-red-600">{error}</div>
+      <div className="min-h-screen bg-primary-flat flex items-center justify-center">
+        <div className="text-center card-pastel p-8 max-w-md">
+          <Logo size="lg" className="mx-auto mb-4 opacity-50" />
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <svg className="h-6 w-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-xl text-red-600 font-semibold">{error}</span>
+          </div>
+          <p className="text-sm text-gray-600 mb-4">
+            Errore nella connessione al server. Riprova più tardi.
+          </p>
+          <button
+            onClick={fetchMarkets}
+            className="button-primary-flat"
+          >
+            Riprova
+          </button>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-primary-flat">
+      <Notification
+        show={notification.show}
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification(prev => ({ ...prev, show: false }))}
+      />
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Polymarket Bot Control
-          </h1>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">
-              Benvenuto, {user?.username}
+            <Logo size="lg" className="pulse-gentle" />
+            <div>
+              <h1 className="text-3xl font-bold text-primary-flat">
+                Polymarket Bot Control
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">
+                Dashboard di controllo per bot di liquidità
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-gray-600 bg-white/60 px-3 py-1 rounded-full">
+              Benvenuto, <span className="font-semibold text-gray-800">{user?.username}</span>
             </span>
             <button
               onClick={fetchMarkets}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="button-primary-flat flex items-center space-x-2"
             >
-              Aggiorna
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Aggiorna</span>
             </button>
             <button
               onClick={logout}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="button-danger-flat"
             >
               Logout
             </button>
@@ -210,59 +273,65 @@ export default function MarketsPage() {
         </div>
 
         {/* Barra di ricerca */}
-        <div className="mb-6">
+        <div className="mb-6 fade-in">
           <div className="relative max-w-md">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
             <input
               type="text"
               placeholder="Cerca nelle domande dei mercati..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              className="input-pastel block w-full pl-4 pr-20 py-3 text-gray-700 placeholder-gray-400 focus:placeholder-gray-300"
             />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
             {searchTerm && (
               <button
                 onClick={() => handleSearchChange('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-8 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 title="Cancella ricerca"
               >
-                <svg className="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             )}
           </div>
           {searchTerm && (
-            <div className="mt-2 text-sm text-gray-600">
-              Trovati {sortedMarkets.length} mercati che contengono &ldquo;{searchTerm}&rdquo;
+            <div className="mt-3 text-sm text-gray-600 bg-white/50 px-3 py-2 rounded-lg inline-block">
+              Trovati <span className="font-semibold text-blue-600">{sortedMarkets.length}</span> mercati che contengono &ldquo;<span className="font-medium">{searchTerm}</span>&rdquo;
             </div>
           )}
         </div>
 
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
+        <div className="card-pastel fade-in">
+          <div className="px-6 py-4 border-b border-blue-100 bg-blue-50">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-900">
-                {searchTerm ? `Mercati Filtrati (${filteredMarkets.length})` : `Mercati Attivi (${markets.length})`}
+              <h2 className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
+                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span>
+                  {searchTerm ? `Mercati Filtrati (${filteredMarkets.length})` : `Mercati Attivi (${markets.length})`}
+                </span>
               </h2>
-              <div className="text-sm text-gray-500">
-                Pagina {currentPage} di {totalPages} - Mostrando {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, sortedMarkets.length)} di {sortedMarkets.length} mercati
+              <div className="text-sm text-gray-600 bg-white/60 px-3 py-1 rounded-full">
+                Pagina <span className="font-semibold">{currentPage}</span> di <span className="font-semibold">{totalPages}</span> - 
+                Mostrando {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, sortedMarkets.length)} di {sortedMarkets.length} mercati
               </div>
             </div>
           </div>
           
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 table-fixed">
-              <thead className="bg-gray-50">
+            <table className="min-w-full table-fixed">
+              <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+                  <th className="table-pastel th px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
                     <button
                       onClick={() => handleSort('question')}
-                      className="flex items-center space-x-1 hover:text-gray-700"
+                      className="flex items-center space-x-1 hover:text-gray-700 transition-colors"
                     >
                       <span>Domanda</span>
                       {sortField === 'question' && (
@@ -276,10 +345,10 @@ export default function MarketsPage() {
                       )}
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">
+                  <th className="table-pastel th px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">
                     <button
                       onClick={() => handleSort('reward')}
-                      className="flex items-center space-x-1 hover:text-gray-700"
+                      className="flex items-center space-x-1 hover:text-gray-700 transition-colors"
                     >
                       <span>Reward</span>
                       {sortField === 'reward' && (
