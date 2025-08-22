@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Funzione per verificare la validità del token
   const verifyToken = async (tokenToVerify: string) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3002'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL
       const response = await fetch(`${apiUrl}/api/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${tokenToVerify}`
@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Funzione di login
   const login = async (username: string, password: string) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3002'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL
       const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         headers: {

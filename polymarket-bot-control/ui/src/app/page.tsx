@@ -17,7 +17,7 @@ function TopRewardsWidget() {
     if (!token) return
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3002'}/api/markets`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
