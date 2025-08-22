@@ -23,7 +23,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { name: 'Home', href: '/', icon: HomeIcon },
-  { name: 'Dashboard', href: '/dashboard', icon: ChartBarIcon },
+  { name: 'Markets', href: '/markets', icon: ChartBarIcon },
   { name: 'Settings', href: '/settings', icon: CogIcon },
 ]
 
