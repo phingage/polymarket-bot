@@ -13,7 +13,7 @@ function StatsCard({ title, value, icon: Icon, trend }: {
   trend?: { value: string; isPositive: boolean }
 }) {
   return (
-    <div className="bg-white overflow-hidden shadow rounded-lg">
+    <div className="stats-card overflow-hidden shadow rounded-lg">
       <div className="p-5">
         <div className="flex items-center">
           <div className="flex-shrink-0">
@@ -56,13 +56,13 @@ function RecentActivity() {
     switch (status) {
       case 'success': return 'text-green-600 bg-green-100'
       case 'warning': return 'text-yellow-600 bg-yellow-100'
-      case 'info': return 'text-blue-600 bg-blue-100'
+      case 'info': return 'status-info'
       default: return 'text-gray-600 bg-gray-100'
     }
   }
 
   return (
-    <div className="bg-white shadow rounded-lg">
+    <div className="stats-card shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
           Recent Activity
@@ -79,7 +79,7 @@ function RecentActivity() {
           ))}
         </div>
         <div className="mt-4">
-          <button className="text-sm text-blue-600 hover:text-blue-500">
+          <button className="text-sm text-link hover:text-link transition-colors">
             View all activities →
           </button>
         </div>
@@ -131,7 +131,7 @@ function HomePage() {
       {/* Main content grid */}
       <div className="grid grid-cols-1 space-y-6 lg:grid-cols-2 lg:space-y-0 lg:space-x-6">
         {/* Chart placeholder */}
-        <div className="bg-white shadow rounded-lg">
+        <div className="stats-card shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
               Performance Chart
@@ -150,19 +150,19 @@ function HomePage() {
       </div>
 
       {/* Quick actions */}
-      <div className="bg-white shadow rounded-lg">
+      <div className="stats-card shadow rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
             Quick Actions
           </h3>
           <div className="grid grid-cols-1 space-y-4 sm:grid-cols-3 sm:space-y-0 sm:space-x-4">
-            <button className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors">
               Start Bot
             </button>
-            <button className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md btn-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors">
               View Positions
             </button>
-            <button className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md btn-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors">
               Generate Report
             </button>
           </div>
@@ -178,7 +178,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 loading-spinner"></div>
       </div>
     )
   }

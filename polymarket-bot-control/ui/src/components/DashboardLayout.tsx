@@ -46,13 +46,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-800 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 sidebar-bg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="flex items-center justify-between h-16 px-4 bg-slate-900">
-          <h1 className="text-xl font-bold text-white">Polymarket Bot</h1>
+        <div className="flex items-center justify-between h-16 px-4 sidebar-bg">
+          <h1 className="text-xl font-bold sidebar-text">Polymarket Bot</h1>
           <button
-            className="lg:hidden text-white"
+            className="lg:hidden sidebar-text"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >
@@ -67,10 +67,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center space-x-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 hover:bg-slate-700 hover:text-white'
+                className={`flex items-center space-x-3 px-4 py-3 text-sm font-medium rounded-lg sidebar-item ${
+                  isActive ? 'active' : ''
                 }`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -84,21 +82,21 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* User section */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
           <div className="flex items-center space-x-3 mb-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-sm font-medium text-white">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center user-avatar">
+              <span className="text-sm font-medium">
                 {user?.username?.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">
+              <p className="text-sm font-medium sidebar-text truncate">
                 {user?.username}
               </p>
-              <p className="text-xs text-gray-400">Administrator</p>
+              <p className="text-xs opacity-75 sidebar-text">Administrator</p>
             </div>
           </div>
           <button
             onClick={logout}
-            className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-gray-300 hover:bg-slate-700 hover:text-white rounded-lg transition-colors"
+            className="flex items-center space-x-2 w-full px-3 py-2 text-sm sidebar-item rounded-lg"
           >
             <ArrowRightOnRectangleIcon className="h-4 w-4" />
             Logout
@@ -109,20 +107,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Main content */}
       <div className="lg:ml-64">
         {/* Top bar */}
-        <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="topbar shadow-sm border-b">
           <div className="flex items-center justify-between h-16 px-4">
             <button
-              className="lg:hidden text-gray-600"
+              className="lg:hidden topbar-button"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open sidebar"
             >
               <Bars3Icon className="h-6 w-6" />
             </button>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold topbar-title">
               Dashboard Control Panel
             </h2>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm topbar-text">
                 Welcome, {user?.username}
               </span>
             </div>
@@ -130,7 +128,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Page content */}
-        <main className="p-6">
+        <main className="p-6 main-content min-h-screen">
           {children}
         </main>
       </div>
