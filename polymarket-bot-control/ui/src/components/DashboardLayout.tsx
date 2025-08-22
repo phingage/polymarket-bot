@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-screen flex bg-gray-50 overflow-hidden">
       {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div 
@@ -47,7 +47,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 sidebar-bg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 sidebar-bg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex lg:flex-col ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex items-center justify-between h-16 px-4 sidebar-bg">
@@ -61,7 +61,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </button>
         </div>
 
-        <nav className="mt-8 px-4 space-y-2">
+        <nav className="flex-1 mt-8 px-4 space-y-2 overflow-y-auto">
           {menuItems.map((item) => {
             const isActive = pathname === item.href
             return (
@@ -81,7 +81,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </nav>
 
         {/* User section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+        <div className="flex-shrink-0 p-4 border-t border-slate-700">
           <div className="flex items-center space-x-3 mb-3">
             <div className="w-8 h-8 rounded-full flex items-center justify-center user-avatar">
               <span className="text-sm font-medium">
@@ -106,30 +106,37 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
 
       {/* Main content */}
-      <div className="lg:ml-64">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <div className="topbar shadow-sm border-b">
-          <div className="flex items-center justify-between h-16 px-4">
-            <button
-              className="lg:hidden topbar-button"
-              onClick={() => setSidebarOpen(true)}
-              aria-label="Open sidebar"
-            >
-              <Bars3Icon className="h-6 w-6" />
-            </button>
-            <h2 className="text-lg font-semibold topbar-title">
-              Dashboard Control Panel
-            </h2>
+        <div className="flex-shrink-0 topbar shadow-sm border-b">
+          <div className="flex items-center justify-between h-16 px-4 lg:px-6">
             <div className="flex items-center space-x-4">
-              <span className="text-sm topbar-text">
+              <button
+                className="lg:hidden topbar-button"
+                onClick={() => setSidebarOpen(true)}
+                aria-label="Open sidebar"
+              >
+                <Bars3Icon className="h-6 w-6" />
+              </button>
+              <h2 className="text-lg font-semibold topbar-title">
+                Dashboard Control Panel
+              </h2>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm topbar-text hidden sm:inline">
                 Welcome, {user?.username}
               </span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center user-avatar lg:hidden">
+                <span className="text-sm font-medium">
+                  {user?.username?.charAt(0).toUpperCase()}
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Page content */}
-        <main className="p-6 main-content min-h-screen">
+        <main className="flex-1 p-4 lg:p-6 main-content overflow-y-auto">
           {children}
         </main>
       </div>

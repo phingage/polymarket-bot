@@ -101,7 +101,7 @@ function HomePage() {
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-1 space-y-5 sm:grid-cols-2 lg:grid-cols-4 sm:space-y-0 sm:space-x-5">
+      <div className="stats-grid">
         <StatsCard
           title="Active Bots"
           value="3"
@@ -129,7 +129,7 @@ function HomePage() {
       </div>
 
       {/* Main content grid */}
-      <div className="grid grid-cols-1 space-y-6 lg:grid-cols-2 lg:space-y-0 lg:space-x-6">
+      <div className="grid-spacing">
         {/* Chart placeholder */}
         <div className="stats-card shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
@@ -155,7 +155,7 @@ function HomePage() {
           <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
             Quick Actions
           </h3>
-          <div className="grid grid-cols-1 space-y-4 sm:grid-cols-3 sm:space-y-0 sm:space-x-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <button className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md btn-primary focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors">
               Start Bot
             </button>
