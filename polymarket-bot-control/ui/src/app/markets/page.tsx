@@ -27,6 +27,7 @@ interface Market {
   active: boolean
   closed: boolean
   archived: boolean
+  monitored: boolean
   slug: string
   description: string
   outcomes: string[]
@@ -174,6 +175,39 @@ function MarketsTable() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+  }
+
+  const toggleMonitoring = async (marketId: string, currentlyMonitored: boolean) => {
+    if (!token) return
+
+    try {
+      setTableLoading(true)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets/${marketId}/monitoring`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ monitored: !currentlyMonitored })
+      })
+
+      if (response.ok) {
+        // Update local state
+        setMarkets(prevMarkets => 
+          prevMarkets.map(market => 
+            market.id === marketId 
+              ? { ...market, monitored: !currentlyMonitored }
+              : market
+          )
+        )
+      } else {
+        console.error('Failed to toggle monitoring status')
+      }
+    } catch (error) {
+      console.error('Error toggling monitoring:', error)
+    } finally {
+      setTableLoading(false)
+    }
   }
 
   const formatCurrency = (value: string) => {
@@ -370,6 +404,11 @@ function MarketsTable() {
           <table className="table-enhanced min-w-full">
             <thead>
               <tr>
+                <th className="w-16">
+                  <div className="flex items-center justify-center">
+                    <span className="text-xs font-medium">Monitor</span>
+                  </div>
+                </th>
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('question')}
@@ -458,6 +497,30 @@ function MarketsTable() {
                   className="animate-fade-in"
                   style={{animationDelay: `${index * 20}ms`}}
                 >
+                  <td>
+                    <div className="flex items-center justify-center">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={market.monitored}
+                          onChange={() => toggleMonitoring(market.id, market.monitored)}
+                          className="sr-only"
+                          disabled={tableLoading}
+                        />
+                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                          market.monitored 
+                            ? 'bg-green-500 border-green-500' 
+                            : 'border-gray-300 hover:border-green-400'
+                        }`}>
+                          {market.monitored && (
+                            <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                  </td>
                   <td>
                     <div className="max-w-xs">
                       <div 

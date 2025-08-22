@@ -42,6 +42,7 @@ export interface Market {
   active?: boolean;
   closed?: boolean;
   archived?: boolean;
+  monitored?: boolean;
 }
 
 export interface FormattedMarket {
@@ -57,6 +58,7 @@ export interface FormattedMarket {
   active: boolean;
   closed: boolean;
   archived: boolean;
+  monitored: boolean;
   slug: string;
   description: string;
   outcomes: string[];

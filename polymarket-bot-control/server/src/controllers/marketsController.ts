@@ -1,4 +1,4 @@
-import { Db, Collection } from 'mongodb';
+import { Db, Collection, ObjectId } from 'mongodb';
 import { Request, Response } from 'express';
 import { Market, FormattedMarket, PaginatedResponse, MarketsQueryParams, TopMarketsQueryParams } from '../types';
 import { safeToISOString } from '../utils/dateUtils';
@@ -126,6 +126,7 @@ class MarketsController {
         active: market.active || false,
         closed: market.closed || false,
         archived: market.archived || false,
+        monitored: market.monitored || false,
         slug: market.slug || '',
         description: market.description || '',
         outcomes: market.outcomes || [],
@@ -195,6 +196,7 @@ class MarketsController {
         active: market.active || false,
         closed: market.closed || false,
         archived: market.archived || false,
+        monitored: market.monitored || false,
         slug: market.slug || '',
         description: market.description || '',
         outcomes: market.outcomes || [],
@@ -205,6 +207,109 @@ class MarketsController {
 
     } catch (error: any) {
       console.error('Error in getTopMarkets:', error);
+      return res.status(500).json({ 
+        error: 'Internal server error', 
+        message: error.message 
+      } as any);
+    }
+  }
+
+  /**
+   * Toggle monitoring status for a market
+   */
+  async toggleMarketMonitoring(req: Request<{ id: string }>, res: Response): Promise<Response> {
+    try {
+      if (!this.db) {
+        return res.status(500).json({ error: 'Database not connected' });
+      }
+
+      const { id } = req.params;
+      const { monitored }: { monitored: boolean } = req.body;
+
+      if (typeof monitored !== 'boolean') {
+        return res.status(400).json({ error: 'monitored field must be a boolean' });
+      }
+
+      const collection = this.getMarketsCollection();
+      
+      // Try to find by id first, then by ObjectId if it's a valid ObjectId
+      let query: any;
+      if (ObjectId.isValid(id)) {
+        query = { $or: [{ id }, { _id: new ObjectId(id) }] };
+      } else {
+        query = { id };
+      }
+
+      const result = await collection.updateOne(query, { $set: { monitored } });
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: 'Market not found' });
+      }
+
+      console.log(`Market ${id} monitoring status set to: ${monitored}`);
+
+      return res.json({
+        success: true,
+        marketId: id,
+        monitored,
+        message: `Market monitoring ${monitored ? 'enabled' : 'disabled'}`
+      });
+
+    } catch (error: any) {
+      console.error('Error in toggleMarketMonitoring:', error);
+      return res.status(500).json({ 
+        error: 'Internal server error', 
+        message: error.message 
+      });
+    }
+  }
+
+  /**
+   * Get monitored markets (for dashboard widget)
+   */
+  async getMonitoredMarkets(req: Request<{}, FormattedMarket[], {}, TopMarketsQueryParams>, res: Response<FormattedMarket[]>): Promise<Response> {
+    try {
+      if (!this.db) {
+        return res.status(500).json({ error: 'Database not connected' } as any);
+      }
+
+      const limit = Math.min(20, Math.max(1, parseInt(req.query.limit || '10')));
+      const collection = this.getMarketsCollection();
+      
+      const markets = await collection
+        .find({
+          clobRewards: { $exists: true, $ne: [] },
+          monitored: true // Solo mercati monitorati
+        })
+        .sort({ 'clobRewards.0.rewardsDailyRate': -1 }) // Ordinati per reward più alto
+        .limit(limit)
+        .toArray();
+
+      const formattedMarkets: FormattedMarket[] = markets.map(market => ({
+        id: market.id || market._id.toString(),
+        question: market.question || 'N/A',
+        reward: market.clobRewards && market.clobRewards[0] ? 
+          (market.clobRewards[0].rewardsDailyRate || '0') : '0',
+        minSize: market.rewardsMinSize || '0',
+        maxSpread: market.rewardsMaxSpread || '0',
+        spread: market.spread || '0',
+        endDate: safeToISOString(market.endDate),
+        volume: (market.volumeNum || 0).toString(),
+        liquidity: (market.liquidityNum || 0).toString(),
+        active: market.active || false,
+        closed: market.closed || false,
+        archived: market.archived || false,
+        monitored: market.monitored || false,
+        slug: market.slug || '',
+        description: market.description || '',
+        outcomes: market.outcomes || [],
+        outcomePrices: market.outcomePrices || []
+      }));
+
+      return res.json(formattedMarkets);
+
+    } catch (error: any) {
+      console.error('Error in getMonitoredMarkets:', error);
       return res.status(500).json({ 
         error: 'Internal server error', 
         message: error.message 

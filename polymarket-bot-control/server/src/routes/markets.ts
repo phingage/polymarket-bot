@@ -13,7 +13,13 @@ router.get('/', marketsController.getMarkets.bind(marketsController));
 // GET /api/markets/top - Get top markets by reward
 router.get('/top', marketsController.getTopMarkets.bind(marketsController));
 
+// GET /api/markets/monitored - Get monitored markets (for dashboard widget)
+router.get('/monitored', marketsController.getMonitoredMarkets.bind(marketsController));
+
 // GET /api/markets/stats - Get markets statistics
 router.get('/stats', marketsController.getMarketsStats.bind(marketsController));
+
+// PUT /api/markets/:id/monitoring - Toggle market monitoring status
+router.put('/:id/monitoring', marketsController.toggleMarketMonitoring.bind(marketsController));
 
 export default router;
