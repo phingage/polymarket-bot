@@ -145,9 +145,19 @@ function MarketsTable() {
     return isNaN(num) ? '$0' : `$${num.toLocaleString('en-US', { maximumFractionDigits: 2 })}`
   }
 
-  const formatPercentage = (value: string) => {
-    const num = parseFloat(value) * 100
-    return isNaN(num) ? '0%' : `${num.toFixed(2)}%`
+  const formatReward = (value: string) => {
+    const num = parseFloat(value)
+    return isNaN(num) ? '$0' : `$${num.toLocaleString('en-US', { maximumFractionDigits: 2 })}`
+  }
+
+  const formatDecimal = (value: string) => {
+    const num = parseFloat(value)
+    return isNaN(num) ? '0.00' : num.toFixed(2)
+  }
+
+  const formatShares = (value: string) => {
+    const num = parseInt(value)
+    return isNaN(num) ? '0' : num.toLocaleString('en-US')
   }
 
   const formatDate = (dateString: string) => {
@@ -336,8 +346,30 @@ function MarketsTable() {
                   onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
-                    <span>Reward Rate</span>
+                    <span>Reward</span>
                     {getSortIcon('reward')}
+                  </div>
+                </th>
+                <th 
+                  className="cursor-pointer transition-colors"
+                  onClick={() => handleSort('minSize')}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  <div className="flex items-center space-x-2">
+                    <span>Min Size</span>
+                    {getSortIcon('minSize')}
+                  </div>
+                </th>
+                <th 
+                  className="cursor-pointer transition-colors"
+                  onClick={() => handleSort('maxSpread')}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  <div className="flex items-center space-x-2">
+                    <span>Max Spread</span>
+                    {getSortIcon('maxSpread')}
                   </div>
                 </th>
                 <th 
@@ -407,7 +439,17 @@ function MarketsTable() {
                   </td>
                   <td>
                     <div className="font-semibold" style={{color: 'var(--success)'}}>
-                      {formatPercentage(market.reward)}
+                      {formatReward(market.reward)}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="font-medium" style={{color: 'var(--info)'}}>
+                      {formatShares(market.minSize)}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="font-medium" style={{color: 'var(--warning)'}}>
+                      {formatDecimal(market.maxSpread)}
                     </div>
                   </td>
                   <td>
