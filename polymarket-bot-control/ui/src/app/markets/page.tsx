@@ -327,11 +327,10 @@ function MarketsTable() {
             <thead>
               <tr>
                 <th 
-                  className="cursor-pointer transition-colors hover:bg-opacity-50"
-                  style={{'--hover-bg': 'var(--background-alt)'}}
+                  className="cursor-pointer transition-colors"
                   onClick={() => handleSort('question')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Market Question</span>
@@ -342,8 +341,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('reward')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Reward</span>
@@ -353,8 +352,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('minSize')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Min Size</span>
@@ -364,8 +363,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('maxSpread')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Max Spread</span>
@@ -375,8 +374,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('volume')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Volume</span>
@@ -386,8 +385,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('liquidity')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>Liquidity</span>
@@ -397,8 +396,8 @@ function MarketsTable() {
                 <th 
                   className="cursor-pointer transition-colors"
                   onClick={() => handleSort('endDate')}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = 'var(--background-alt)'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = 'var(--background-alt)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = 'transparent'}
                 >
                   <div className="flex items-center space-x-2">
                     <span>End Date</span>
