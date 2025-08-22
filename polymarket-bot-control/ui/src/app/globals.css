@@ -1,7 +1,7 @@
 @import "tailwindcss";
 :root {
   /* Dashboard Theme - Soft Modern Palette */
-  --background: #A5FFD6;
+  --background: #F8FDFC;
   --foreground: #2D3748;
   --card: #FFFFFF;
   --card-foreground: #2D3748;
@@ -88,7 +88,7 @@ body {
 
 /* Login Form Styles */
 .login-bg {
-  background: linear-gradient(135deg, var(--background) 0%, #F0FFF8 100%);
+  background-color: var(--background);
 }
 
 .login-card {
@@ -217,7 +217,7 @@ body {
 
 /* Enhanced Card Styles */
 .stats-card {
-  background: linear-gradient(135deg, var(--card) 0%, #F7FFFC 100%);
+  background-color: var(--card);
   border: 1px solid var(--border);
   transition: all 0.3s ease;
 }
