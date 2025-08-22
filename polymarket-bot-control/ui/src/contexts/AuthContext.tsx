@@ -1,7 +1,8 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
+// Tipi per l'autenticazione
 interface User {
   id: string
   username: string
@@ -15,14 +16,16 @@ interface AuthContextType {
   isLoading: boolean
 }
 
+// Creazione del contesto
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+// Provider del contesto di autenticazione
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Verifica il token salvato al caricamento
+  // Verifica il token salvato al caricamento della pagina
   useEffect(() => {
     const savedToken = localStorage.getItem('auth_token')
     if (savedToken) {
@@ -32,10 +35,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
+  // Funzione per verificare la validità del token
   const verifyToken = async (tokenToVerify: string) => {
     try {
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3002'
-      const response = await fetch(`${apiBaseUrl}/api/auth/verify`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+      const response = await fetch(`${apiUrl}/api/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${tokenToVerify}`
         }
@@ -49,34 +53,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.removeItem('auth_token')
       }
     } catch (error) {
-      console.error('Errore verifica token:', error)
+      console.error('Token verification failed:', error)
       localStorage.removeItem('auth_token')
     } finally {
       setIsLoading(false)
     }
   }
 
+  // Funzione di login
   const login = async (username: string, password: string) => {
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3002'
-    const response = await fetch(`${apiBaseUrl}/api/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    })
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      })
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.error || 'Errore durante il login')
+      if (!response.ok) {
+        throw new Error('Login failed')
+      }
+
+      const data = await response.json()
+      setUser(data.user)
+      setToken(data.token)
+      localStorage.setItem('auth_token', data.token)
+    } catch (error) {
+      throw error
     }
-
-    const data = await response.json()
-    setUser(data.user)
-    setToken(data.token)
-    localStorage.setItem('auth_token', data.token)
   }
 
+  // Funzione di logout
   const logout = () => {
     setUser(null)
     setToken(null)
@@ -90,10 +99,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function useAuth() {
+// Hook per utilizzare il contesto di autenticazione
+export function useAuth(): AuthContextType {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error('useAuth deve essere usato all\'interno di un AuthProvider')
+    throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
 }
