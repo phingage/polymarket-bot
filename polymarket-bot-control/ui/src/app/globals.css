@@ -1,8 +1,4 @@
-@reference "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 :root {
   /* Dashboard Theme */
   --background: #f8fafc;
