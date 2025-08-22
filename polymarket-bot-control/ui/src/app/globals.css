@@ -1,4 +1,7 @@
- @reference "tailwindcss";
+@reference "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   /* Dashboard Theme */
