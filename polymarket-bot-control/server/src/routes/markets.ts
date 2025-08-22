@@ -1,6 +1,6 @@
-const express = require('express');
-const marketsController = require('../controllers/marketsController');
-const authMiddleware = require('../middleware/auth');
+import express from 'express';
+import marketsController from '../controllers/marketsController';
+import authMiddleware from '../middleware/auth';
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.get('/top', marketsController.getTopMarkets.bind(marketsController));
 // GET /api/markets/stats - Get markets statistics
 router.get('/stats', marketsController.getMarketsStats.bind(marketsController));
 
-module.exports = router;
+export default router;

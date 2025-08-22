@@ -1,23 +1,30 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { ObjectId } = require('mongodb');
+import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
+import { ObjectId, Db, Collection } from 'mongodb';
+import { Request, Response } from 'express';
+import { User, JWTPayload, AuthRequest } from '../types';
 
 class AuthController {
-  constructor() {
-    this.db = null;
-  }
+  private db: Db | null = null;
 
-  setDatabase(db) {
+  setDatabase(db: Db): void {
     this.db = db;
   }
 
-  async login(req, res) {
+  private getUsersCollection(): Collection<User> {
+    if (!this.db) {
+      throw new Error('Database not connected');
+    }
+    return this.db.collection<User>(process.env.USERS_COLLECTION || 'users');
+  }
+
+  async login(req: Request, res: Response): Promise<Response> {
     try {
       if (!this.db) {
         return res.status(500).json({ error: 'Database not connected' });
       }
 
-      const { username, password } = req.body;
+      const { username, password }: { username?: string; password?: string } = req.body;
 
       if (!username || !password) {
         return res.status(400).json({ 
@@ -25,7 +32,7 @@ class AuthController {
         });
       }
 
-      const usersCollection = this.db.collection(process.env.USERS_COLLECTION || 'users');
+      const usersCollection = this.getUsersCollection();
       const user = await usersCollection.findOne({ username });
       
       if (!user) {
@@ -47,13 +54,18 @@ class AuthController {
         });
       }
 
+      const jwtPayload: JWTPayload = {
+        userId: user._id.toString(),
+        username: user.username
+      };
+
       const token = jwt.sign(
-        { userId: user._id.toString(), username: user.username },
+        jwtPayload,
         process.env.JWT_SECRET || 'your-secret-key',
         { expiresIn: '24h' }
       );
 
-      res.json({
+      return res.json({
         user: {
           id: user._id.toString(),
           username: user.username
@@ -61,16 +73,16 @@ class AuthController {
         token
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in login:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error',
         message: error.message 
       });
     }
   }
 
-  async verify(req, res) {
+  async verify(req: Request, res: Response): Promise<Response> {
     try {
       if (!this.db) {
         return res.status(500).json({ error: 'Database not connected' });
@@ -84,8 +96,19 @@ class AuthController {
         });
       }
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
-      const usersCollection = this.db.collection(process.env.USERS_COLLECTION || 'users');
+      let decoded: JWTPayload;
+      try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as JWTPayload;
+      } catch (jwtError: any) {
+        if (jwtError.name === 'JsonWebTokenError' || jwtError.name === 'TokenExpiredError') {
+          return res.status(401).json({ 
+            error: 'Invalid or expired token' 
+          });
+        }
+        throw jwtError;
+      }
+
+      const usersCollection = this.getUsersCollection();
       const user = await usersCollection.findOne({ _id: new ObjectId(decoded.userId) });
 
       if (!user) {
@@ -100,37 +123,30 @@ class AuthController {
         });
       }
 
-      res.json({
+      return res.json({
         user: {
           id: user._id.toString(),
           username: user.username
         }
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in verify:', error);
-      
-      if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
-        return res.status(401).json({ 
-          error: 'Invalid or expired token' 
-        });
-      }
-
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error',
         message: error.message 
       });
     }
   }
 
-  async getProfile(req, res) {
+  async getProfile(req: AuthRequest, res: Response): Promise<Response> {
     try {
       if (!this.db) {
         return res.status(500).json({ error: 'Database not connected' });
       }
 
       const userId = req.user.userId;
-      const usersCollection = this.db.collection(process.env.USERS_COLLECTION || 'users');
+      const usersCollection = this.getUsersCollection();
       const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
 
       if (!user) {
@@ -145,7 +161,7 @@ class AuthController {
         });
       }
 
-      res.json({
+      return res.json({
         user: {
           id: user._id.toString(),
           username: user.username,
@@ -154,9 +170,9 @@ class AuthController {
         }
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in getProfile:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error',
         message: error.message 
       });
@@ -164,4 +180,4 @@ class AuthController {
   }
 }
 
-module.exports = new AuthController();
+export default new AuthController();

@@ -1,26 +1,30 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import { Response, NextFunction } from 'express';
+import { AuthRequest, JWTPayload } from '../types';
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): void => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
 
     if (!token) {
-      return res.status(401).json({ 
+      res.status(401).json({ 
         error: 'Access denied. No token provided.' 
       });
+      return;
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as JWTPayload;
     req.user = decoded;
     next();
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('Auth middleware error:', error);
     
     if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
-      return res.status(401).json({ 
+      res.status(401).json({ 
         error: 'Invalid or expired token' 
       });
+      return;
     }
 
     res.status(500).json({ 
@@ -30,4 +34,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

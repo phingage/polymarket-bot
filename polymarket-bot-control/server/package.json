@@ -2,14 +2,22 @@
   "name": "polymarket-bot-server",
   "version": "1.0.0",
   "description": "Backend API server for Polymarket Bot Control",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "dev:watch": "nodemon --exec ts-node src/server.ts",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "postbuild": "echo Build completed successfully",
     "test": "jest --config=jest.config.json",
-    "test:coverage": "jest --config=jest.config.json --coverage"
+    "test:coverage": "jest --config=jest.config.json --coverage",
+    "type-check": "tsc --noEmit",
+    "add-user": "ts-node src/scripts/add-user.ts"
   },
   "dependencies": {
+    "@polymarket/clob-client": "^4.20.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -19,11 +27,17 @@
     "mongodb": "^6.0.0"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^3.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.3.0",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
-    "supertest": "^6.3.3"
+    "rimraf": "^6.0.1",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   },
   "keywords": [
     "polymarket",

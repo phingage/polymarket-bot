@@ -1,11 +1,13 @@
 {
   "watch": [
-    "server.js",
     "src/"
   ],
-  "ext": "js,json",
+  "ext": "ts,js,json",
   "ignore": [
     "node_modules/",
+    "dist/",
+    "*.test.ts",
+    "*.spec.ts",
     "*.test.js",
     "*.spec.js",
     ".git/",

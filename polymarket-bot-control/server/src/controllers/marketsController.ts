@@ -1,12 +1,20 @@
-const { MongoClient } = require('mongodb');
+import { Db, Collection } from 'mongodb';
+import { Request, Response } from 'express';
+import { Market, FormattedMarket, PaginatedResponse, MarketsQueryParams, TopMarketsQueryParams } from '../types';
+import { safeToISOString } from '../utils/dateUtils';
 
 class MarketsController {
-  constructor() {
-    this.db = null;
+  private db: Db | null = null;
+
+  setDatabase(db: Db): void {
+    this.db = db;
   }
 
-  setDatabase(db) {
-    this.db = db;
+  private getMarketsCollection(): Collection<Market> {
+    if (!this.db) {
+      throw new Error('Database not connected');
+    }
+    return this.db.collection<Market>(process.env.MONGO_COLLECTION || 'markets');
   }
 
   /**
@@ -19,24 +27,24 @@ class MarketsController {
    * - sortBy: field to sort by (reward, volume, liquidity, minSize, maxSpread, endDate, question)
    * - sortOrder: asc or desc (default: desc)
    */
-  async getMarkets(req, res) {
+  async getMarkets(req: Request<{}, PaginatedResponse<FormattedMarket>, {}, MarketsQueryParams>, res: Response<PaginatedResponse<FormattedMarket>>): Promise<Response> {
     try {
       if (!this.db) {
-        return res.status(500).json({ error: 'Database not connected' });
+        return res.status(500).json({ error: 'Database not connected' } as any);
       }
 
       // Parse query parameters with defaults
-      const page = Math.max(1, parseInt(req.query.page) || 1);
-      const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 50));
+      const page = Math.max(1, parseInt(req.query.page || '1'));
+      const limit = Math.min(100, Math.max(1, parseInt(req.query.limit || '50')));
       const search = req.query.search || '';
       const status = req.query.status || 'all';
       const sortBy = req.query.sortBy || 'reward';
       const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
 
-      const collection = this.db.collection(process.env.MONGO_COLLECTION || 'markets');
+      const collection = this.getMarketsCollection();
       
       // Build MongoDB query
-      const query = {
+      const query: any = {
         clobRewards: { $exists: true, $ne: [] }
       };
 
@@ -64,7 +72,7 @@ class MarketsController {
       }
 
       // Build sort object
-      const sort = {};
+      const sort: any = {};
       switch (sortBy) {
         case 'question':
           sort.question = sortOrder;
@@ -104,7 +112,7 @@ class MarketsController {
       console.log(`Retrieved ${markets.length} markets (page ${page}/${Math.ceil(totalCount / limit)})`);
 
       // Transform data for the frontend
-      const formattedMarkets = markets.map(market => ({
+      const formattedMarkets: FormattedMarket[] = markets.map(market => ({
         id: market.id || market._id.toString(),
         question: market.question || 'N/A',
         reward: market.clobRewards && market.clobRewards[0] ? 
@@ -112,9 +120,9 @@ class MarketsController {
         minSize: market.rewardsMinSize || '0',
         maxSpread: market.rewardsMaxSpread || '0',
         spread: market.spread || '0',
-        endDate: market.endDate || new Date().toISOString(),
-        volume: market.volumeNum || '0',
-        liquidity: market.liquidityNum || '0',
+        endDate: safeToISOString(market.endDate),
+        volume: (market.volumeNum || 0).toString(),
+        liquidity: (market.liquidityNum || 0).toString(),
         active: market.active || false,
         closed: market.closed || false,
         archived: market.archived || false,
@@ -125,7 +133,7 @@ class MarketsController {
       }));
 
       // Return paginated response
-      res.json({
+      return res.json({
         data: formattedMarkets,
         pagination: {
           page,
@@ -143,26 +151,26 @@ class MarketsController {
         }
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in getMarkets:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error', 
         message: error.message 
-      });
+      } as any);
     }
   }
 
   /**
    * Get top markets by reward (for homepage widget)
    */
-  async getTopMarkets(req, res) {
+  async getTopMarkets(req: Request<{}, FormattedMarket[], {}, TopMarketsQueryParams>, res: Response<FormattedMarket[]>): Promise<Response> {
     try {
       if (!this.db) {
-        return res.status(500).json({ error: 'Database not connected' });
+        return res.status(500).json({ error: 'Database not connected' } as any);
       }
 
-      const limit = Math.min(20, Math.max(1, parseInt(req.query.limit) || 10));
-      const collection = this.db.collection(process.env.MONGO_COLLECTION || 'markets');
+      const limit = Math.min(20, Math.max(1, parseInt(req.query.limit || '10')));
+      const collection = this.getMarketsCollection();
       
       const markets = await collection
         .find({
@@ -173,38 +181,47 @@ class MarketsController {
         .limit(limit)
         .toArray();
 
-      const formattedMarkets = markets.map(market => ({
+      const formattedMarkets: FormattedMarket[] = markets.map(market => ({
         id: market.id || market._id.toString(),
         question: market.question || 'N/A',
         reward: market.clobRewards && market.clobRewards[0] ? 
           (market.clobRewards[0].rewardsDailyRate || '0') : '0',
+        minSize: market.rewardsMinSize || '0',
+        maxSpread: market.rewardsMaxSpread || '0',
+        spread: market.spread || '0',
+        endDate: safeToISOString(market.endDate),
+        volume: (market.volumeNum || 0).toString(),
+        liquidity: (market.liquidityNum || 0).toString(),
         active: market.active || false,
         closed: market.closed || false,
         archived: market.archived || false,
-        slug: market.slug || ''
+        slug: market.slug || '',
+        description: market.description || '',
+        outcomes: market.outcomes || [],
+        outcomePrices: market.outcomePrices || []
       }));
 
-      res.json(formattedMarkets);
+      return res.json(formattedMarkets);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in getTopMarkets:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error', 
         message: error.message 
-      });
+      } as any);
     }
   }
 
   /**
    * Get markets statistics
    */
-  async getMarketsStats(req, res) {
+  async getMarketsStats(req: Request, res: Response): Promise<Response> {
     try {
       if (!this.db) {
         return res.status(500).json({ error: 'Database not connected' });
       }
 
-      const collection = this.db.collection(process.env.MONGO_COLLECTION || 'markets');
+      const collection = this.getMarketsCollection();
       
       const stats = await Promise.all([
         collection.countDocuments({}),
@@ -214,7 +231,7 @@ class MarketsController {
         collection.countDocuments({ clobRewards: { $exists: true, $ne: [] } })
       ]);
       
-      res.json({
+      return res.json({
         total: stats[0],
         active: stats[1],
         closed: stats[2],
@@ -222,9 +239,9 @@ class MarketsController {
         withRewards: stats[4]
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in getMarketsStats:', error);
-      res.status(500).json({ 
+      return res.status(500).json({ 
         error: 'Internal server error', 
         message: error.message 
       });
@@ -232,4 +249,4 @@ class MarketsController {
   }
 }
 
-module.exports = new MarketsController();
+export default new MarketsController();

@@ -1,6 +1,6 @@
-const express = require('express');
-const authController = require('../controllers/authController');
-const authMiddleware = require('../middleware/auth');
+import express from 'express';
+import authController from '../controllers/authController';
+import authMiddleware from '../middleware/auth';
 
 const router = express.Router();
 
@@ -13,4 +13,4 @@ router.get('/verify', authController.verify.bind(authController));
 // GET /api/auth/profile - Get user profile (protected route)
 router.get('/profile', authMiddleware, authController.getProfile.bind(authController));
 
-module.exports = router;
+export default router;
