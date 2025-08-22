@@ -17,7 +17,7 @@ function TopRewardsWidget() {
     if (!token) return
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets/top?limit=10`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -26,11 +26,7 @@ function TopRewardsWidget() {
 
       if (response.ok) {
         const data = await response.json()
-        // Ordina per reward e prende i top 10
-        const topMarkets = data
-          .sort((a, b) => parseFloat(b.reward) - parseFloat(a.reward))
-          .slice(0, 10)
-        setMarkets(topMarkets)
+        setMarkets(data)
       }
     } catch (error) {
       console.error('Error fetching markets:', error)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import DashboardLayout from '@/components/DashboardLayout'
 import LoginForm from '@/components/LoginForm'
@@ -41,24 +41,70 @@ interface SortConfig {
 function MarketsTable() {
   const [markets, setMarkets] = useState<Market[]>([])
   const [loading, setLoading] = useState(true)
+  const [tableLoading, setTableLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' })
+  const [searchInput, setSearchInput] = useState('')
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'reward', direction: 'desc' })
   const [filter, setFilter] = useState<'all' | 'active' | 'closed' | 'archived'>('all')
   const [currentPage, setCurrentPage] = useState(1)
+  const [pagination, setPagination] = useState({
+    total: 0,
+    totalPages: 0,
+    hasNext: false,
+    hasPrev: false
+  })
   const itemsPerPage = 50
 
   const { user, token } = useAuth()
 
-  const fetchMarkets = async () => {
+  // Load sort settings from localStorage and initialize
+  const [isConfigLoaded, setIsConfigLoaded] = useState(false)
+  
+  useEffect(() => {
+    const savedSortConfig = localStorage.getItem('markets-sort-config')
+    if (savedSortConfig) {
+      try {
+        const parsedConfig = JSON.parse(savedSortConfig)
+        if (parsedConfig.key && parsedConfig.direction) {
+          setSortConfig(parsedConfig)
+        }
+      } catch (error) {
+        console.error('Failed to parse saved sort config:', error)
+      }
+    }
+    setIsConfigLoaded(true)
+  }, [])
+
+  // Save sort settings to localStorage whenever sortConfig changes
+  useEffect(() => {
+    if (isConfigLoaded) {
+      localStorage.setItem('markets-sort-config', JSON.stringify(sortConfig))
+    }
+  }, [sortConfig, isConfigLoaded])
+
+  const fetchMarkets = async (page: number = 1, search: string = '', status: string = 'all', sortBy: string = 'reward', sortOrder: string = 'desc', isInitialLoad: boolean = false) => {
     try {
-      setLoading(true)
+      if (isInitialLoad) {
+        setLoading(true)
+      } else {
+        setTableLoading(true)
+      }
       
       if (!token) {
         throw new Error('Token di autenticazione non trovato')
       }
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets`, {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: itemsPerPage.toString(),
+        ...(search && search.length >= 3 && { search }),
+        ...(status !== 'all' && { status }),
+        sortBy,
+        sortOrder
+      })
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/markets?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -74,20 +120,39 @@ function MarketsTable() {
         throw new Error(`Errore nel caricamento dei mercati (${response.status})`)
       }
 
-      const data = await response.json()
-      setMarkets(data)
+      const responseData = await response.json()
+      setMarkets(responseData.data)
+      setPagination(responseData.pagination)
+      setError(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Errore sconosciuto')
     } finally {
-      setLoading(false)
+      if (isInitialLoad) {
+        setLoading(false)
+      } else {
+        setTableLoading(false)
+      }
     }
   }
 
+  // Debounced search effect
   useEffect(() => {
-    if (user && token) {
-      fetchMarkets()
+    const timeoutId = setTimeout(() => {
+      if (searchInput.length === 0 || searchInput.length >= 3) {
+        setSearchTerm(searchInput)
+        setCurrentPage(1)
+      }
+    }, 2000)
+
+    return () => clearTimeout(timeoutId)
+  }, [searchInput])
+
+  useEffect(() => {
+    if (user && token && isConfigLoaded) {
+      const isInitialLoad = currentPage === 1 && searchTerm === '' && filter === 'all'
+      fetchMarkets(currentPage, searchTerm, filter, sortConfig.key || 'reward', sortConfig.direction, isInitialLoad)
     }
-  }, [user, token])
+  }, [user, token, currentPage, searchTerm, filter, sortConfig, isConfigLoaded])
 
   const handleSort = (key: keyof Market) => {
     let direction: 'asc' | 'desc' = 'asc'
@@ -95,50 +160,21 @@ function MarketsTable() {
       direction = 'desc'
     }
     setSortConfig({ key, direction })
+    setCurrentPage(1)
   }
 
-  // Reset current page when search or filter changes
-  useEffect(() => {
+  const handleSearchInput = (search: string) => {
+    setSearchInput(search)
+  }
+
+  const handleFilterChange = (newFilter: 'all' | 'active' | 'closed' | 'archived') => {
+    setFilter(newFilter)
     setCurrentPage(1)
-  }, [searchTerm, filter])
+  }
 
-  const filteredAndSortedMarkets = markets
-    .filter(market => {
-      const matchesSearch = market.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           market.slug.toLowerCase().includes(searchTerm.toLowerCase())
-      
-      const matchesFilter = filter === 'all' || 
-                           (filter === 'active' && market.active) ||
-                           (filter === 'closed' && market.closed) ||
-                           (filter === 'archived' && market.archived)
-      
-      return matchesSearch && matchesFilter
-    })
-    .sort((a, b) => {
-      if (!sortConfig.key) return 0
-
-      const aValue = a[sortConfig.key]
-      const bValue = b[sortConfig.key]
-
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        const result = aValue.localeCompare(bValue)
-        return sortConfig.direction === 'asc' ? result : -result
-      }
-
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        const result = aValue - bValue
-        return sortConfig.direction === 'asc' ? result : -result
-      }
-
-      return 0
-    })
-
-  // Calculate pagination
-  const totalItems = filteredAndSortedMarkets.length
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  const currentPageItems = filteredAndSortedMarkets.slice(startIndex, endIndex)
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
 
   const formatCurrency = (value: string) => {
     const num = parseFloat(value)
@@ -183,13 +219,13 @@ function MarketsTable() {
   }
 
   const goToPage = (page: number) => {
-    setCurrentPage(Math.max(1, Math.min(totalPages, page)))
+    setCurrentPage(Math.max(1, Math.min(pagination.totalPages, page)))
   }
 
   const getVisiblePages = () => {
     const maxVisiblePages = 5
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2))
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
+    let endPage = Math.min(pagination.totalPages, startPage + maxVisiblePages - 1)
     
     if (endPage - startPage + 1 < maxVisiblePages) {
       startPage = Math.max(1, endPage - maxVisiblePages + 1)
@@ -226,7 +262,7 @@ function MarketsTable() {
           <p className="text-sm" style={{color: 'var(--foreground-muted)'}}>{error}</p>
         </div>
         <button 
-          onClick={fetchMarkets}
+          onClick={() => fetchMarkets()}
           className="btn-primary-enhanced"
         >
           Try Again
@@ -258,9 +294,9 @@ function MarketsTable() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search by question or slug..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by question or slug... (min 3 chars)"
+                value={searchInput}
+                onChange={(e) => handleSearchInput(e.target.value)}
                 className="input-enhanced pl-4 pr-12"
               />
               <MagnifyingGlassIcon 
@@ -278,7 +314,7 @@ function MarketsTable() {
             <div className="relative">
               <select
                 value={filter}
-                onChange={(e) => setFilter(e.target.value as any)}
+                onChange={(e) => handleFilterChange(e.target.value as any)}
                 className="input-enhanced pl-4 pr-12 appearance-none cursor-pointer"
               >
                 <option value="all">All Markets</option>
@@ -297,21 +333,21 @@ function MarketsTable() {
         <div className="mt-6 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span className="text-sm font-medium" style={{color: 'var(--foreground)'}}>
-              {startIndex + 1}–{Math.min(endIndex, totalItems)} of {totalItems} markets
+              {((currentPage - 1) * itemsPerPage) + 1}–{Math.min(currentPage * itemsPerPage, pagination.total)} of {pagination.total} markets
             </span>
-            {totalItems > 0 && (
+            {pagination.total > 0 && (
               <div className="h-4 w-px" style={{backgroundColor: 'var(--card-border)'}}></div>
             )}
             <span className="text-sm" style={{color: 'var(--foreground-muted)'}}>
-              {totalPages} {totalPages === 1 ? 'page' : 'pages'}
+              {pagination.totalPages} {pagination.totalPages === 1 ? 'page' : 'pages'}
             </span>
           </div>
           <button 
-            onClick={fetchMarkets}
+            onClick={() => fetchMarkets(1, searchTerm, filter, sortConfig.key || 'reward', sortConfig.direction, false)}
             className="btn-secondary-enhanced text-sm px-4 py-2"
-            disabled={loading}
+            disabled={tableLoading}
           >
-            {loading ? (
+            {tableLoading ? (
               <><div className="loading-spinner-enhanced w-4 h-4 mr-2"></div>Refreshing</>
             ) : (
               'Refresh Data'
@@ -321,7 +357,15 @@ function MarketsTable() {
       </div>
 
       {/* Markets Table */}
-      <div className="card-enhanced overflow-hidden">
+      <div className="card-enhanced overflow-hidden relative">
+        {tableLoading && (
+          <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-10">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="loading-spinner-enhanced"></div>
+              <p className="text-sm font-medium" style={{color: 'var(--foreground)'}}>Loading markets...</p>
+            </div>
+          </div>
+        )}
         <div className="overflow-x-auto">
           <table className="table-enhanced min-w-full">
             <thead>
@@ -408,7 +452,7 @@ function MarketsTable() {
               </tr>
             </thead>
             <tbody>
-              {currentPageItems.map((market, index) => (
+              {markets.map((market, index) => (
                 <tr 
                   key={market.id} 
                   className="animate-fade-in"
@@ -483,7 +527,7 @@ function MarketsTable() {
           </table>
         </div>
 
-        {currentPageItems.length === 0 && totalItems > 0 && (
+        {markets.length === 0 && pagination.total > 0 && (
           <div className="text-center py-16">
             <div className="mb-6">
               <div 
@@ -502,7 +546,7 @@ function MarketsTable() {
           </div>
         )}
 
-        {totalItems === 0 && (
+        {pagination.total === 0 && (
           <div className="text-center py-16">
             <div className="mb-6">
               <div 
@@ -518,7 +562,7 @@ function MarketsTable() {
                 Try adjusting your search or filter criteria, or check back later for new markets
               </p>
               <button 
-                onClick={fetchMarkets}
+                onClick={() => fetchMarkets(1, searchTerm, filter, sortConfig.key || 'reward', sortConfig.direction, false)}
                 className="btn-secondary-enhanced"
               >
                 Refresh Markets
@@ -529,24 +573,24 @@ function MarketsTable() {
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {pagination.totalPages > 1 && (
         <div className="card-enhanced p-6">
           <div className="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:items-center lg:justify-between">
             <div className="flex items-center space-x-3 text-sm">
               <span className="font-medium" style={{color: 'var(--foreground)'}}>
-                Page {currentPage} of {totalPages}
+                Page {currentPage} of {pagination.totalPages}
               </span>
               <div className="h-4 w-px" style={{backgroundColor: 'var(--card-border)'}}></div>
               <span style={{color: 'var(--foreground-muted)'}}>
-                {totalItems} total results
+                {pagination.total} total results
               </span>
             </div>
             
             <div className="pagination-enhanced">
               {/* Previous button */}
               <button
-                onClick={() => goToPage(currentPage - 1)}
-                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={!pagination.hasPrev}
                 className="pagination-btn flex items-center px-4 py-2 text-sm font-medium"
                 style={{minWidth: '90px'}}
               >
@@ -559,7 +603,7 @@ function MarketsTable() {
                 {getVisiblePages().map((page) => (
                   <button
                     key={page}
-                    onClick={() => goToPage(page)}
+                    onClick={() => handlePageChange(page)}
                     className={`pagination-btn ${
                       page === currentPage ? 'active' : ''
                     }`}
@@ -571,8 +615,8 @@ function MarketsTable() {
 
               {/* Next button */}
               <button
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={!pagination.hasNext}
                 className="pagination-btn flex items-center px-4 py-2 text-sm font-medium"
                 style={{minWidth: '90px'}}
               >
@@ -588,7 +632,7 @@ function MarketsTable() {
               {getVisiblePages().map((page) => (
                 <button
                   key={page}
-                  onClick={() => goToPage(page)}
+                  onClick={() => handlePageChange(page)}
                   className={`pagination-btn ${
                     page === currentPage ? 'active' : ''
                   }`}
