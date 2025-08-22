@@ -13,6 +13,7 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline'
 import { useState } from 'react'
+import BrandLogo from './BrandLogo'
 
 interface MenuItem {
   name: string
@@ -50,7 +51,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex items-center justify-between h-16 px-4 sidebar-bg">
-          <h1 className="text-xl font-bold sidebar-text">Polymarket Bot</h1>
+          <BrandLogo variant="full" size="sm" />
           <button
             className="lg:hidden sidebar-text"
             onClick={() => setSidebarOpen(false)}

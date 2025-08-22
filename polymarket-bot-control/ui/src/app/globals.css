@@ -227,3 +227,12 @@ body {
   box-shadow: 0 8px 25px rgba(132, 220, 198, 0.2);
   border-color: var(--primary);
 }
+
+/* Text Colors for Logo */
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
