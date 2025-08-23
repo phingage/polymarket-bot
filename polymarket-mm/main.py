@@ -12,6 +12,7 @@ from src.config import config
 from src.database import db_client
 from src.market_monitor import market_monitor
 from src.websocket_client import websocket_client
+from src.rabbitmq_client import rabbitmq_client
 
 # Configure logging
 logging.basicConfig(
@@ -29,6 +30,38 @@ class PolymarketMarketMaker:
     def __init__(self):
         self.running = False
         self.tasks = []
+        
+    async def handle_restart_command(self, command_data: Dict[str, Any]):
+        """Handle restart command from RabbitMQ"""
+        try:
+            logger.info("Received restart command - restarting all components")
+            
+            # Close current WebSocket connection
+            await websocket_client.close()
+            
+            # Wait a moment for clean shutdown
+            await asyncio.sleep(2)
+            
+            # Get current asset IDs
+            asset_ids = await self.get_all_monitored_asset_ids()
+            
+            if asset_ids:
+                # Restart WebSocket with current assets
+                success = await websocket_client.start_with_subscriptions(
+                    asset_ids, 
+                    self.main_message_handler,
+                    api_creds=None
+                )
+                
+                if success:
+                    logger.info("WebSocket restarted successfully via RabbitMQ command")
+                else:
+                    logger.error("Failed to restart WebSocket via RabbitMQ command")
+            else:
+                logger.warning("No asset IDs found, cannot restart WebSocket")
+                
+        except Exception as e:
+            logger.error(f"Error handling restart command: {e}")
         
     async def main_message_handler(self, message: Dict[str, Any]):
         """Main message handler that routes to specific handlers based on event_type"""
@@ -103,8 +136,20 @@ class PolymarketMarketMaker:
             
             logger.info(f"Price change event for asset {asset_id}, changes: {len(changes)}")
             
-            # TODO: Implement price change handling logic
-            # For now, just log the event
+            # Send RabbitMQ notification for price change
+            try:
+                await rabbitmq_client.publish_market_notification(
+                    asset_id=asset_id,
+                    event_type="price_change",
+                    data={
+                        "market": condition_id,
+                        "changes": changes,
+                        "timestamp": message.get('timestamp')
+                    }
+                )
+                logger.debug(f"Sent price change notification for asset {asset_id}")
+            except Exception as e:
+                logger.error(f"Error sending price change notification: {e}")
             
         except Exception as e:
             logger.error(f"Error in price change message handler: {e}")
@@ -257,11 +302,39 @@ class PolymarketMarketMaker:
                 new_asset_ids = await self.get_all_monitored_asset_ids()
                 
                 if not new_asset_ids:
-                    logger.warning("No monitored asset IDs found during periodic check")
+                    logger.debug("No monitored asset IDs found during periodic check - staying in idle mode")
                     continue
                 
                 # Check if we have WebSocket client and if asset IDs have changed
                 current_subscriptions = getattr(websocket_client, 'subscriptions', {}).get('market', [])
+                
+                # If no current subscriptions but we have new assets, start WebSocket
+                if not current_subscriptions and new_asset_ids:
+                    logger.info(f"Found {len(new_asset_ids)} assets to monitor - starting WebSocket from idle mode")
+                    try:
+                        # Get API credentials from market monitor's CLOB client
+                        api_creds = None
+                        if market_monitor.clob_client:
+                            try:
+                                logger.info("Using CLOB client API credentials for WebSocket")
+                            except Exception as e:
+                                logger.warning(f"Could not get API credentials: {e}")
+                        
+                        # Start WebSocket client with reconnection loop
+                        websocket_task = asyncio.create_task(
+                            websocket_client.reconnect_loop(
+                                new_asset_ids, 
+                                self.main_message_handler,
+                                api_creds=api_creds,
+                                max_retries=10
+                            )
+                        )
+                        self.tasks.append(websocket_task)
+                        logger.info(f"WebSocket started from idle mode with {len(new_asset_ids)} assets")
+                        continue
+                    except Exception as e:
+                        logger.error(f"Failed to start WebSocket from idle mode: {e}")
+                        continue
                 
                 # Compare current subscriptions with new asset IDs
                 if set(new_asset_ids) != set(current_subscriptions):
@@ -303,6 +376,18 @@ class PolymarketMarketMaker:
                 logger.error("Failed to connect to database")
                 return False
             
+            # Connect to RabbitMQ
+            if not await rabbitmq_client.connect():
+                logger.error("Failed to connect to RabbitMQ")
+                return False
+            
+            # Setup command handlers
+            rabbitmq_client.add_command_handler("restart", self.handle_restart_command)
+            
+            # Start RabbitMQ command listener
+            rabbitmq_task = asyncio.create_task(rabbitmq_client.start_command_listener())
+            self.tasks.append(rabbitmq_task)
+            
             # Initialize market monitor with proper CLOB client
             private_key = os.getenv('WALLET_PRIVATE_KEY')
             if not await market_monitor.initialize(private_key):
@@ -313,10 +398,9 @@ class PolymarketMarketMaker:
             asset_ids = await self.get_all_monitored_asset_ids()
             
             if not asset_ids:
-                logger.warning("No asset IDs found to monitor")
-                return False
-            
-            logger.info(f"Monitoring {len(asset_ids)} assets")
+                logger.warning("No asset IDs found to monitor at startup - service will run in idle mode and check periodically")
+            else:
+                logger.info(f"Monitoring {len(asset_ids)} assets")
             
             # Start periodic cleanup task
             cleanup_task = asyncio.create_task(self.periodic_cleanup())
@@ -335,16 +419,19 @@ class PolymarketMarketMaker:
                 except Exception as e:
                     logger.warning(f"Could not get API credentials: {e}")
             
-            # Start WebSocket client with reconnection loop
-            websocket_task = asyncio.create_task(
-                websocket_client.reconnect_loop(
-                    asset_ids, 
-                    self.main_message_handler,
-                    api_creds=api_creds,
-                    max_retries=10
+            # Start WebSocket client only if we have assets to monitor
+            if asset_ids:
+                websocket_task = asyncio.create_task(
+                    websocket_client.reconnect_loop(
+                        asset_ids, 
+                        self.main_message_handler,
+                        api_creds=api_creds,
+                        max_retries=10
+                    )
                 )
-            )
-            self.tasks.append(websocket_task)
+                self.tasks.append(websocket_task)
+            else:
+                logger.info("No WebSocket connection started - waiting for markets to be added")
             
             # Wait for tasks to complete
             await asyncio.gather(*self.tasks, return_exceptions=True)
@@ -376,6 +463,9 @@ class PolymarketMarketMaker:
             
             # Close WebSocket connection
             await websocket_client.close()
+            
+            # Disconnect from RabbitMQ
+            await rabbitmq_client.disconnect()
             
             # Disconnect from database
             db_client.disconnect()

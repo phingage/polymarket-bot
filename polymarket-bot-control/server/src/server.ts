@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 // Import routes
 import authRoutes from './routes/auth';
 import marketsRoutes from './routes/markets';
+import servicesRoutes from './routes/services';
 
 // Import controllers
 import marketsController from './controllers/marketsController';
@@ -71,6 +72,7 @@ async function connectToDatabase(): Promise<void> {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/markets', marketsRoutes);
+app.use('/api/services', servicesRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

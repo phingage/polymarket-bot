@@ -5,6 +5,7 @@ import { AuthRequest, JWTPayload } from '../types';
 const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): void => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
+    console.log('Auth middleware - received token:', token ? `${token.substring(0, 20)}...` : 'null');
 
     if (!token) {
       res.status(401).json({ 

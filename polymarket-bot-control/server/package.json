@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@polymarket/clob-client": "^4.20.0",
+    "@types/amqplib": "^0.10.7",
+    "amqplib": "^0.10.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

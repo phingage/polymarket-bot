@@ -3,6 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext'
 import DashboardLayout from '@/components/DashboardLayout'
 import LoginForm from '@/components/LoginForm'
+import ServiceStatusWidget from '@/components/ServiceStatusWidget'
 
 // Componente principale della pagina Settings
 function SettingsPage() {
@@ -18,20 +19,29 @@ function SettingsPage() {
         </p>
       </div>
 
-      {/* Placeholder content */}
-      <div className="card-enhanced p-12 text-center">
-        <div 
-          className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6"
-          style={{backgroundColor: 'var(--secondary-light)'}}
-        >
-          <span className="text-3xl">⚙️</span>
+      {/* Grid layout for sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Service Management Section */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold" style={{color: 'var(--foreground)'}}>Service Management</h2>
+          <ServiceStatusWidget />
         </div>
-        <h3 className="text-xl font-semibold mb-3" style={{color: 'var(--foreground)'}}>
-          Settings Panel Coming Soon
-        </h3>
-        <p className="text-base max-w-md mx-auto" style={{color: 'var(--foreground-muted)'}}>
-          This section will allow you to customize bot behavior, set trading parameters, manage API keys, and configure system preferences.
-        </p>
+
+        {/* Application Settings Section */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold" style={{color: 'var(--foreground)'}}>Application Settings</h2>
+          <div className="card-enhanced p-6">
+            <h3 className="text-lg font-semibold mb-3" style={{color: 'var(--foreground)'}}>
+              Configuration
+            </h3>
+            <p className="text-sm mb-4" style={{color: 'var(--foreground-muted)'}}>
+              Configure your application preferences and settings.
+            </p>
+            <p className="text-sm" style={{color: 'var(--foreground-muted)'}}>
+              Additional settings coming soon...
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )
