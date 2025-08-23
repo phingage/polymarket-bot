@@ -13,6 +13,7 @@ export default function ServiceStatusWidget() {
   const [status, setStatus] = useState<ServiceStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [restarting, setRestarting] = useState(false);
+  const [stopping, setStopping] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchStatus = async () => {
@@ -40,7 +41,7 @@ export default function ServiceStatusWidget() {
   };
 
   const handleRestart = async () => {
-    if (restarting) return;
+    if (restarting || stopping) return;
 
     setRestarting(true);
     try {
@@ -75,6 +76,42 @@ export default function ServiceStatusWidget() {
     }
   };
 
+  const handleStop = async () => {
+    if (stopping || restarting) return;
+
+    setStopping(true);
+    try {
+      const token = localStorage.getItem('auth_token');
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+      const response = await fetch(`${apiUrl}/api/services/polymarket-mm/stop`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to stop service');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        // Update status to show stop was initiated
+        setStatus(prev => prev ? { ...prev, status: 'idle' } : null);
+        
+        // Fetch updated status after a delay
+        setTimeout(fetchStatus, 2000);
+      } else {
+        throw new Error(data.message || 'Stop failed');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Stop failed');
+    } finally {
+      setStopping(false);
+    }
+  };
+
   useEffect(() => {
     fetchStatus();
     
@@ -88,10 +125,13 @@ export default function ServiceStatusWidget() {
     switch (status) {
       case 'running':
         return 'text-green-600';
+      case 'idle':
+        return 'text-blue-600';
       case 'restarting':
         return 'text-yellow-600';
       case 'stopped':
       case 'error':
+      case 'unknown':
         return 'text-red-600';
       default:
         return 'text-gray-600';
@@ -102,10 +142,13 @@ export default function ServiceStatusWidget() {
     switch (status) {
       case 'running':
         return '🟢';
+      case 'idle':
+        return '🔵';
       case 'restarting':
         return '🟡';
       case 'stopped':
       case 'error':
+      case 'unknown':
         return '🔴';
       default:
         return '⚪';
@@ -144,17 +187,30 @@ export default function ServiceStatusWidget() {
                 {status.status}
               </span>
             </div>
-            <button
-              onClick={handleRestart}
-              disabled={restarting || status.status === 'restarting'}
-              className={`btn-primary ${
-                restarting || status.status === 'restarting'
-                  ? 'opacity-50 cursor-not-allowed'
-                  : ''
-              }`}
-            >
-              {restarting ? 'Restarting...' : 'Restart Service'}
-            </button>
+            <div className="flex space-x-2">
+              <button
+                onClick={handleRestart}
+                disabled={restarting || stopping || status.status === 'restarting'}
+                className={`btn-primary ${
+                  restarting || stopping || status.status === 'restarting'
+                    ? 'opacity-50 cursor-not-allowed'
+                    : ''
+                }`}
+              >
+                {restarting ? 'Restarting...' : 'Restart'}
+              </button>
+              <button
+                onClick={handleStop}
+                disabled={stopping || restarting || status.status === 'unknown'}
+                className={`btn-secondary ${
+                  stopping || restarting || status.status === 'unknown'
+                    ? 'opacity-50 cursor-not-allowed'
+                    : ''
+                }`}
+              >
+                {stopping ? 'Stopping...' : 'Stop'}
+              </button>
+            </div>
           </div>
 
           <div className="text-sm" style={{color: 'var(--foreground-muted)'}}>

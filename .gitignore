@@ -2,3 +2,4 @@
 polymarket-bot-control/node_modules
 node_modules
 .claude
+polymarket-mm/src/__pycache__

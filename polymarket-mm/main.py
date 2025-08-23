@@ -30,6 +30,8 @@ class PolymarketMarketMaker:
     def __init__(self):
         self.running = False
         self.tasks = []
+        self.last_heartbeat = None
+        self.websocket_active = False
         
     async def handle_restart_command(self, command_data: Dict[str, Any]):
         """Handle restart command from RabbitMQ"""
@@ -55,13 +57,110 @@ class PolymarketMarketMaker:
                 
                 if success:
                     logger.info("WebSocket restarted successfully via RabbitMQ command")
+                    self.websocket_active = True
                 else:
                     logger.error("Failed to restart WebSocket via RabbitMQ command")
+                    self.websocket_active = False
+                
+                # Send immediate heartbeat after restart operation
+                await self.send_immediate_heartbeat()
             else:
                 logger.warning("No asset IDs found, cannot restart WebSocket")
                 
         except Exception as e:
             logger.error(f"Error handling restart command: {e}")
+    
+    async def handle_stop_command(self, command_data: Dict[str, Any]):
+        """Handle stop command from RabbitMQ - stops WebSocket until restart"""
+        try:
+            logger.info("Received stop command - stopping WebSocket connection")
+            
+            # Close current WebSocket connection
+            await websocket_client.close()
+            
+            # Cancel WebSocket task if it exists
+            websocket_task = None
+            for task in self.tasks:
+                if hasattr(task, '_coro') and 'reconnect_loop' in str(task._coro):
+                    websocket_task = task
+                    break
+            
+            if websocket_task and not websocket_task.done():
+                websocket_task.cancel()
+                try:
+                    await websocket_task
+                except asyncio.CancelledError:
+                    logger.info("WebSocket task cancelled successfully")
+                # Remove cancelled task from task list
+                self.tasks = [t for t in self.tasks if t != websocket_task]
+            
+            logger.info("WebSocket stopped successfully via RabbitMQ command")
+            self.websocket_active = False
+            
+            # Send immediate heartbeat after stop operation
+            await self.send_immediate_heartbeat()
+                
+        except Exception as e:
+            logger.error(f"Error handling stop command: {e}")
+    
+    async def heartbeat_loop(self):
+        """Send periodic heartbeat messages to RabbitMQ for health monitoring"""
+        while self.running:
+            try:
+                # Update heartbeat timestamp
+                self.last_heartbeat = datetime.now(timezone.utc).isoformat()
+                
+                # Check if WebSocket is currently active
+                self.websocket_active = (
+                    hasattr(websocket_client, 'websocket') and 
+                    websocket_client.websocket and 
+                    not websocket_client.websocket.closed
+                )
+                
+                # Send heartbeat via RabbitMQ
+                await rabbitmq_client.publish_heartbeat({
+                    'timestamp': self.last_heartbeat,
+                    'status': 'running',
+                    'websocket_active': self.websocket_active,
+                    'monitored_assets': len(await self.get_all_monitored_asset_ids()),
+                    'service': 'polymarket-mm'
+                })
+                
+                # Wait 10 seconds before next heartbeat
+                await asyncio.sleep(10)
+                
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                logger.error(f"Error in heartbeat loop: {e}")
+                await asyncio.sleep(10)  # Continue trying even if there's an error
+    
+    async def send_immediate_heartbeat(self):
+        """Send immediate heartbeat after command operations"""
+        try:
+            # Update heartbeat timestamp
+            self.last_heartbeat = datetime.now(timezone.utc).isoformat()
+            
+            # Check if WebSocket is currently active
+            self.websocket_active = (
+                hasattr(websocket_client, 'websocket') and 
+                websocket_client.websocket and 
+                not websocket_client.websocket.closed
+            )
+            
+            # Send immediate heartbeat via RabbitMQ
+            await rabbitmq_client.publish_heartbeat({
+                'timestamp': self.last_heartbeat,
+                'status': 'running',
+                'websocket_active': self.websocket_active,
+                'monitored_assets': len(await self.get_all_monitored_asset_ids()),
+                'service': 'polymarket-mm'
+            })
+            
+            logger.info(f"Sent immediate heartbeat - WebSocket active: {self.websocket_active}")
+            
+        except Exception as e:
+            logger.error(f"Error sending immediate heartbeat: {e}")
         
     async def main_message_handler(self, message: Dict[str, Any]):
         """Main message handler that routes to specific handlers based on event_type"""
@@ -383,10 +482,15 @@ class PolymarketMarketMaker:
             
             # Setup command handlers
             rabbitmq_client.add_command_handler("restart", self.handle_restart_command)
+            rabbitmq_client.add_command_handler("stop", self.handle_stop_command)
             
             # Start RabbitMQ command listener
             rabbitmq_task = asyncio.create_task(rabbitmq_client.start_command_listener())
             self.tasks.append(rabbitmq_task)
+            
+            # Start heartbeat task
+            heartbeat_task = asyncio.create_task(self.heartbeat_loop())
+            self.tasks.append(heartbeat_task)
             
             # Initialize market monitor with proper CLOB client
             private_key = os.getenv('WALLET_PRIVATE_KEY')

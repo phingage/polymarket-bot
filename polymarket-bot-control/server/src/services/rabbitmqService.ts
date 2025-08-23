@@ -1,6 +1,17 @@
 import amqp from 'amqplib/callback_api';
 
+interface ServiceStatus {
+  timestamp: string;
+  status: string;
+  websocket_active: boolean;
+  monitored_assets: number;
+  service: string;
+}
+
 export class RabbitMQService {
+  private lastHeartbeat: ServiceStatus | null = null;
+  private heartbeatListener: any = null;
+
   private getUrl(): string {
     const url = process.env.RABBITMQ_URL;
     if (!url) {
@@ -71,15 +82,129 @@ export class RabbitMQService {
     return await this.sendCommand('restart');
   }
 
-  async getServiceStatus(): Promise<{ status: string; lastCheck: number }> {
-    // For now, we'll simulate service status
-    // In a real implementation, you might check if the service is responding
-    // by monitoring the markets topic or having a health check mechanism
+  async startHeartbeatListener(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const url = this.getUrl();
+      console.log(`Starting heartbeat listener on ${url}`);
+      
+      amqp.connect(url, (error0, connection) => {
+        if (error0) {
+          console.error('Failed to connect to RabbitMQ for heartbeat:', error0);
+          reject(error0);
+          return;
+        }
+
+        connection.createChannel((error1, channel) => {
+          if (error1) {
+            console.error('Failed to create heartbeat channel:', error1);
+            connection.close();
+            reject(error1);
+            return;
+          }
+
+          const exchange = 'polymarket';
+          const routingKey = 'service.heartbeat.polymarket-mm';
+          
+          channel.assertExchange(exchange, 'topic', { durable: true }, (error2) => {
+            if (error2) {
+              console.error('Failed to assert exchange:', error2);
+              connection.close();
+              reject(error2);
+              return;
+            }
+
+            channel.assertQueue('', { exclusive: true }, (error3, q) => {
+              if (error3) {
+                console.error('Failed to assert queue:', error3);
+                connection.close();
+                reject(error3);
+                return;
+              }
+
+              channel.bindQueue(q.queue, exchange, routingKey, {}, (error4) => {
+                if (error4) {
+                  console.error('Failed to bind queue:', error4);
+                  connection.close();
+                  reject(error4);
+                  return;
+                }
+
+                console.log(`Listening for heartbeats on ${routingKey}`);
+                
+                channel.consume(q.queue, (msg) => {
+                  if (msg) {
+                    try {
+                      const heartbeat = JSON.parse(msg.content.toString()) as ServiceStatus;
+                      this.lastHeartbeat = heartbeat;
+                      console.log(`Received heartbeat: ${heartbeat.status}, WebSocket: ${heartbeat.websocket_active}`);
+                    } catch (e) {
+                      console.error('Error parsing heartbeat message:', e);
+                    }
+                    channel.ack(msg);
+                  }
+                }, { noAck: false });
+                
+                this.heartbeatListener = { connection, channel };
+                resolve();
+              });
+            });
+          });
+        });
+      });
+    });
+  }
+
+  async getServiceStatus(): Promise<{ status: string; lastCheck: number; websocket_active?: boolean; monitored_assets?: number }> {
+    // Start heartbeat listener if not already started
+    if (!this.heartbeatListener) {
+      try {
+        await this.startHeartbeatListener();
+      } catch (error) {
+        console.error('Failed to start heartbeat listener:', error);
+        return {
+          status: 'unknown',
+          lastCheck: Date.now()
+        };
+      }
+    }
+
+    if (!this.lastHeartbeat) {
+      return {
+        status: 'unknown',
+        lastCheck: Date.now()
+      };
+    }
+
+    // Check if heartbeat is recent (within last 30 seconds)
+    const heartbeatTime = new Date(this.lastHeartbeat.timestamp).getTime();
+    const now = Date.now();
+    const isRecent = (now - heartbeatTime) < 30000;
+
+    if (!isRecent) {
+      return {
+        status: 'stopped',
+        lastCheck: heartbeatTime
+      };
+    }
+
     return {
-      status: 'running', // could be 'running', 'stopped', 'error', 'unknown'
-      lastCheck: Date.now()
+      status: this.lastHeartbeat.websocket_active ? 'running' : 'idle',
+      lastCheck: heartbeatTime,
+      websocket_active: this.lastHeartbeat.websocket_active,
+      monitored_assets: this.lastHeartbeat.monitored_assets
     };
+  }
+
+  async sendStopCommand(): Promise<boolean> {
+    return await this.sendCommand('stop');
   }
 }
 
 export const rabbitmqService = new RabbitMQService();
+
+// Initialize heartbeat listener when module loads
+setTimeout(() => {
+  rabbitmqService.getServiceStatus().catch(error => {
+    console.error('Failed to initialize heartbeat listener:', error);
+  });
+}, 1000);

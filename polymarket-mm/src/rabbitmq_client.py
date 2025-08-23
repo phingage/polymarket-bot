@@ -160,6 +160,15 @@ class RabbitMQClient:
         except Exception as e:
             logger.error(f"Error publishing market notification: {e}")
             return False
+    
+    async def publish_heartbeat(self, heartbeat_data: Dict[str, Any]):
+        """Publish heartbeat for service health monitoring"""
+        try:
+            routing_key = "service.heartbeat.polymarket-mm"
+            return await self.publish_notification(routing_key, heartbeat_data)
+        except Exception as e:
+            logger.error(f"Error publishing heartbeat: {e}")
+            return False
 
 # Create global instance
 rabbitmq_client = RabbitMQClient()

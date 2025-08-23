@@ -29,6 +29,34 @@ export const restartPolymarketMM = async (req: Request, res: Response) => {
   }
 };
 
+export const stopPolymarketMM = async (req: Request, res: Response) => {
+  try {
+    console.log('Stop request received for polymarket-mm');
+    
+    const success = await rabbitmqService.sendStopCommand();
+    
+    if (success) {
+      return res.json({ 
+        success: true, 
+        message: 'Stop command sent to polymarket-mm successfully',
+        timestamp: Date.now()
+      });
+    } else {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Failed to send stop command to polymarket-mm' 
+      });
+    }
+  } catch (error) {
+    console.error('Error in stopPolymarketMM:', error);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+};
+
 export const getPolymarketMMStatus = async (req: Request, res: Response) => {
   try {
     const status = await rabbitmqService.getServiceStatus();
