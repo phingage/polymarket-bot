@@ -18,6 +18,8 @@ class Config:
     
     # Application Configuration
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+    LOG_TO_FILE = os.getenv("LOG_TO_FILE", "false").lower() == "true"
+    LOG_FILE_PATH = os.getenv("LOG_FILE_PATH", "polymarket_mm.log")
     UPDATE_INTERVAL = int(os.getenv("UPDATE_INTERVAL", "1"))
     MARKET_CHECK_INTERVAL = int(os.getenv("MARKET_CHECK_INTERVAL", "300"))  # Default 5 minutes
     

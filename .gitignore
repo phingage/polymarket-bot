@@ -3,3 +3,5 @@ polymarket-bot-control/node_modules
 node_modules
 .claude
 polymarket-mm/src/__pycache__
+polymarket-mm/.env
+.env

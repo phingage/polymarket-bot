@@ -15,13 +15,19 @@ from src.websocket_client import websocket_client
 from src.rabbitmq_client import rabbitmq_client
 
 # Configure logging
+handlers = [logging.StreamHandler(sys.stdout)]
+
+# Add file handler only if LOG_TO_FILE is enabled
+if config.LOG_TO_FILE:
+    handlers.append(logging.FileHandler(config.LOG_FILE_PATH))
+    print(f"Logging to file: {config.LOG_FILE_PATH}")
+else:
+    print("File logging disabled - set LOG_TO_FILE=true to enable")
+
 logging.basicConfig(
     level=getattr(logging, config.LOG_LEVEL.upper()),
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('polymarket_mm.log')
-    ]
+    handlers=handlers
 )
 
 logger = logging.getLogger(__name__)
