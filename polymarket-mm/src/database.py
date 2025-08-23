@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 from typing import List, Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from src.config import config
 
 logger = logging.getLogger(__name__)
@@ -53,27 +53,64 @@ class MongoDBClient:
         except Exception as e:
             logger.error(f"Error fetching monitored markets: {e}")
             return []
-    
+  
     def store_book_data(self, market_id: str, asset_id: str, book_data: Dict[str, Any]) -> bool:
-        """Store book data for a specific market"""
+        """Store book data for a specific market - overwrites existing data for the same asset_id"""
         try:
+            current_time = datetime.now(timezone.utc)
+            
+            # Document for book_data collection
             document = {
                 "market_id": market_id,
                 "asset_id": asset_id,
-                "timestamp": datetime.utcnow(),
+                "timestamp": current_time,
                 "book_data": book_data,
-                "created_at": datetime.utcnow()
+                "updated_at": current_time
             }
             
-            # Create index for efficient querying
-            self.book_data_collection.create_index([
-                ("market_id", 1),
-                ("asset_id", 1),
-                ("timestamp", -1)
-            ])
+            # Upsert in book_data collection: update if exists, insert if not
+            result = self.book_data_collection.replace_one(
+                {"asset_id": asset_id},  # Filter by asset_id
+                document,  # Replace with new document
+                upsert=True  # Create if doesn't exist
+            )
             
-            result = self.book_data_collection.insert_one(document)
-            logger.debug(f"Stored book data for market {market_id}, document_id: {result.inserted_id}")
+            if result.upserted_id:
+                logger.debug(f"Inserted new book data for asset {asset_id}")
+            else:
+                logger.debug(f"Updated book data for asset {asset_id}")
+            
+            # Also update the markets collection with this book data
+            book_entry = {
+                "asset_id": asset_id,
+                "timestamp": current_time,
+                "book_data": book_data,
+                "updated_at": current_time
+            }
+            
+            # Update markets collection: remove existing entry with same asset_id and add new one
+            markets_result = self.markets_collection.update_one(
+                {"conditionId": market_id},  # Find market by conditionId
+                {
+                    "$pull": {"books": {"asset_id": asset_id}},  # Remove existing book with same asset_id
+                },
+                upsert=False
+            )
+            
+            # Add the new book entry
+            markets_result = self.markets_collection.update_one(
+                {"conditionId": market_id},  # Find market by conditionId
+                {
+                    "$push": {"books": book_entry}  # Add new book entry
+                },
+                upsert=False
+            )
+            
+            if markets_result.modified_count > 0:
+                logger.debug(f"Updated books array in markets collection for conditionId {market_id}")
+            else:
+                logger.warning(f"No market found with conditionId {market_id} to update books array")
+            
             return True
             
         except Exception as e:
@@ -102,7 +139,7 @@ class MongoDBClient:
     def cleanup_old_book_data(self, days_to_keep: int = 7) -> int:
         """Clean up book data older than specified days"""
         try:
-            cutoff_date = datetime.utcnow().replace(
+            cutoff_date = datetime.now(timezone.utc).replace(
                 hour=0, minute=0, second=0, microsecond=0
             )
             cutoff_date = cutoff_date.replace(day=cutoff_date.day - days_to_keep)

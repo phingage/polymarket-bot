@@ -1,0 +1,692 @@
+2025-08-23 13:12:04,403 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:12:13,677 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:12:22,679 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:12:22,679 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:12:23,573 - src.database - INFO - Found 0 monitored markets
+2025-08-23 13:12:23,574 - src.market_monitor - INFO - Refreshed 0 monitored markets
+2025-08-23 13:12:23,574 - src.market_monitor - INFO - MarketMonitor initialized with 0 markets
+2025-08-23 13:12:23,685 - src.database - INFO - Found 0 monitored markets
+2025-08-23 13:12:23,685 - __main__ - INFO - Found 0 asset IDs from 0 monitored markets
+2025-08-23 13:12:23,686 - __main__ - WARNING - No asset IDs found to monitor
+2025-08-23 13:12:23,686 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:12:23,788 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:12:23,790 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:13:00,370 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:13:09,543 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:13:18,723 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:13:18,724 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:13:18,846 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:13:18,846 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:13:18,847 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:13:18,967 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:13:18,968 - __main__ - INFO - Found 0 asset IDs from 1 monitored markets
+2025-08-23 13:13:18,968 - __main__ - WARNING - No asset IDs found to monitor
+2025-08-23 13:13:18,969 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:13:19,075 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:13:19,076 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:17:04,647 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:17:14,020 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:17:23,009 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:17:23,012 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:17:23,136 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:17:23,137 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:17:23,137 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:17:23,245 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:17:23,246 - __main__ - INFO - Found 0 asset IDs from 1 monitored markets
+2025-08-23 13:17:23,246 - __main__ - WARNING - No asset IDs found to monitor
+2025-08-23 13:17:23,246 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:17:23,344 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:17:23,345 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:18:54,861 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:19:04,026 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:19:13,100 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:19:13,101 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:19:13,224 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:19:13,224 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:19:13,224 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:27:45,779 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:30:38,169 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:30:47,388 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:30:56,416 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:30:56,416 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:30:56,532 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:30:56,532 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:30:56,533 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:31:01,279 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:31:16,803 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:31:16,804 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:31:16,804 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:31:16,805 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:31:16,805 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/
+2025-08-23 13:31:17,086 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:31:17,086 - src.websocket_client - INFO - Reconnecting in 2 seconds...
+2025-08-23 13:31:19,101 - src.websocket_client - INFO - Attempting to connect (attempt 2/10)
+2025-08-23 13:31:19,101 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/
+2025-08-23 13:31:19,267 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:31:19,268 - src.websocket_client - INFO - Reconnecting in 4 seconds...
+2025-08-23 13:31:23,270 - src.websocket_client - INFO - Attempting to connect (attempt 3/10)
+2025-08-23 13:31:23,271 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/
+2025-08-23 13:31:23,446 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:31:23,446 - src.websocket_client - INFO - Reconnecting in 8 seconds...
+2025-08-23 13:31:30,401 - __main__ - INFO - Received signal 2
+2025-08-23 13:31:30,402 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:31:30,402 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:31:30,503 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:31:30,503 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:31:30,504 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:31:30,504 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:33:58,578 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:34:07,775 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:34:16,850 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:34:16,852 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:34:16,983 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:34:16,984 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:34:16,984 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:34:20,968 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:34:20,969 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:34:20,969 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:34:20,969 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:34:20,970 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:34:20,970 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com
+2025-08-23 13:34:21,248 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:34:21,248 - src.websocket_client - INFO - Reconnecting in 2 seconds...
+2025-08-23 13:34:23,256 - src.websocket_client - INFO - Attempting to connect (attempt 2/10)
+2025-08-23 13:34:23,257 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com
+2025-08-23 13:34:23,447 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:34:23,447 - src.websocket_client - INFO - Reconnecting in 4 seconds...
+2025-08-23 13:34:27,454 - src.websocket_client - INFO - Attempting to connect (attempt 3/10)
+2025-08-23 13:34:27,455 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com
+2025-08-23 13:34:27,642 - src.websocket_client - ERROR - Failed to connect to WebSocket: server rejected WebSocket connection: HTTP 404
+2025-08-23 13:34:27,644 - src.websocket_client - INFO - Reconnecting in 8 seconds...
+2025-08-23 13:34:35,660 - src.websocket_client - INFO - Attempting to connect (attempt 4/10)
+2025-08-23 13:34:35,661 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com
+2025-08-23 13:34:35,794 - __main__ - INFO - Received signal 2
+2025-08-23 13:34:35,794 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:34:35,835 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:34:35,952 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:34:35,952 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:34:35,953 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:34:35,953 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:35:26,794 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:35:35,959 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:35:44,998 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:35:45,001 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:35:45,142 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:35:45,143 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:35:45,143 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:35:48,342 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:35:48,343 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:35:48,343 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:35:48,343 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:35:48,344 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:35:48,344 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:35:48,651 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:35:48,652 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:35:49,670 - src.websocket_client - INFO - Subscribed to market channel for 2 assets
+2025-08-23 13:35:49,671 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:35:49,730 - src.websocket_client - WARNING - WebSocket connection closed
+2025-08-23 13:35:49,730 - src.websocket_client - INFO - Reconnecting in 1 seconds...
+2025-08-23 13:35:50,736 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:35:50,737 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:35:50,972 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:35:50,973 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:35:51,987 - src.websocket_client - INFO - Subscribed to market channel for 2 assets
+2025-08-23 13:35:51,988 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:35:52,036 - src.websocket_client - WARNING - WebSocket connection closed
+2025-08-23 13:35:52,036 - src.websocket_client - INFO - Reconnecting in 1 seconds...
+2025-08-23 13:35:53,039 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:35:53,039 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:35:53,241 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:35:53,242 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:35:54,257 - src.websocket_client - INFO - Subscribed to market channel for 2 assets
+2025-08-23 13:35:54,258 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:35:54,305 - src.websocket_client - WARNING - WebSocket connection closed
+2025-08-23 13:35:54,305 - src.websocket_client - INFO - Reconnecting in 1 seconds...
+2025-08-23 13:35:55,321 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:35:55,321 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:35:55,525 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:35:55,526 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:35:56,528 - src.websocket_client - INFO - Subscribed to market channel for 2 assets
+2025-08-23 13:35:56,528 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:35:56,574 - src.websocket_client - WARNING - WebSocket connection closed
+2025-08-23 13:35:56,574 - src.websocket_client - INFO - Reconnecting in 1 seconds...
+2025-08-23 13:35:57,579 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:35:57,579 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:35:57,811 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:35:57,816 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:35:58,830 - src.websocket_client - INFO - Subscribed to market channel for 2 assets
+2025-08-23 13:35:58,830 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:35:58,883 - src.websocket_client - WARNING - WebSocket connection closed
+2025-08-23 13:35:58,884 - src.websocket_client - INFO - Reconnecting in 1 seconds...
+2025-08-23 13:35:59,529 - __main__ - INFO - Received signal 2
+2025-08-23 13:35:59,530 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:35:59,530 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:35:59,530 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 13:35:59,635 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:35:59,635 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:35:59,636 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:35:59,636 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:40:35,594 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:40:44,862 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:40:53,924 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:40:53,925 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:40:54,042 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:40:54,042 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:40:54,043 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:40:58,225 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:40:58,226 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:40:58,226 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:40:58,227 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:40:58,228 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:40:58,228 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:40:58,608 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:40:58,609 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:40:59,614 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 13:40:59,615 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:40:59,668 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:20,674 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:20,675 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:40,166 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:40,166 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:40,209 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:41:40,211 - src.websocket_client - ERROR - Error handling message: 'list' object has no attribute 'get'
+2025-08-23 13:47:13,653 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:47:23,152 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:47:32,197 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:47:32,198 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:47:32,320 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:47:32,321 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:47:32,321 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:47:37,217 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:47:37,217 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:47:37,218 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:47:37,218 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:47:37,219 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:47:37,220 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:47:37,532 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:47:37,533 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:47:38,546 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 13:47:38,547 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:47:38,593 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 0, Asks: 0
+2025-08-23 13:47:38,838 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 0, Asks: 0
+2025-08-23 13:48:32,976 - src.websocket_client - INFO - Trade executed - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Side: BUY, Price: 0.95, Size: 12.673683
+2025-08-23 13:48:33,189 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 0, Asks: 0
+2025-08-23 13:48:33,402 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 0, Asks: 0
+2025-08-23 13:48:36,993 - src.websocket_client - INFO - Trade executed - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Side: SELL, Price: 0.94, Size: 96.45
+2025-08-23 13:48:37,238 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 0, Asks: 0
+2025-08-23 13:48:37,449 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 0, Asks: 0
+2025-08-23 13:52:41,197 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:52:50,600 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:52:59,604 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:52:59,604 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:52:59,783 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:52:59,786 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:52:59,787 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:53:05,215 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:53:05,215 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:53:05,216 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:53:05,216 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:53:05,217 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:53:05,217 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:53:05,530 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:53:05,531 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:53:06,550 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 13:53:06,551 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:54:55,272 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 13:55:04,408 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:55:13,485 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 13:55:13,486 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 13:55:13,615 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:55:13,616 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 13:55:13,617 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 13:55:17,330 - src.database - INFO - Found 1 monitored markets
+2025-08-23 13:55:17,331 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 13:55:17,331 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 13:55:17,331 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 13:55:17,332 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 13:55:17,332 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 13:55:17,697 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 13:55:17,698 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 13:55:18,711 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 13:55:18,714 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 13:55:22,798 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 49
+2025-08-23 13:56:02,305 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 49, Asks: 5
+2025-08-23 13:57:47,767 - __main__ - INFO - Received signal 2
+2025-08-23 13:57:47,768 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:57:47,769 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 13:57:47,820 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 13:57:47,929 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:57:47,930 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 13:57:47,930 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 13:57:47,930 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 13:57:47,930 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 14:03:13,100 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:03:22,355 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:03:31,456 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:03:31,456 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:03:31,571 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:03:31,571 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:03:31,572 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:03:37,814 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:03:37,815 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:03:37,815 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:03:37,815 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:03:37,816 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:03:37,817 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:03:38,108 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:03:38,108 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:03:39,136 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:03:39,138 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:03:55,923 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 48
+2025-08-23 14:04:46,061 - __main__ - ERROR - Error in book message handler: type object 'datetime.datetime' has no attribute 'UTC'
+2025-08-23 14:06:00,897 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:06:10,093 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:06:19,234 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:06:19,235 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:06:19,366 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:06:19,366 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:06:19,367 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:06:19,492 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:06:19,493 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:06:19,493 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:06:19,493 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:06:19,494 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:06:19,495 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:06:19,785 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:06:19,787 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:06:20,795 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:06:20,796 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:06:22,934 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 48, Asks: 5
+2025-08-23 14:06:47,953 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 48
+2025-08-23 14:11:50,673 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:12:00,035 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:12:09,113 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:12:09,115 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:12:09,494 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:12:09,495 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:12:09,495 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:12:09,614 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:12:09,616 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:12:09,618 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:12:09,620 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:12:09,628 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:12:09,628 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:12:09,948 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:12:09,949 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:12:10,953 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:12:10,953 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:12:15,187 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 48
+2025-08-23 14:12:22,913 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 48, Asks: 5
+2025-08-23 14:16:04,805 - src.websocket_client - INFO - Trade executed - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Side: BUY, Price: 0.95, Size: 1.05263
+2025-08-23 14:16:04,912 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 48, Asks: 5
+2025-08-23 14:16:05,022 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 48
+2025-08-23 14:17:51,657 - __main__ - INFO - Received signal 2
+2025-08-23 14:17:51,658 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 14:17:51,659 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 14:17:51,706 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 14:17:51,812 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 14:17:51,813 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 14:17:51,813 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 14:17:51,813 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 14:17:51,813 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 14:18:05,424 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:18:14,687 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:18:23,745 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:18:23,749 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:18:23,875 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:18:23,875 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:18:23,875 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:18:23,999 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:18:23,999 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:18:23,999 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:18:24,000 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:18:24,001 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:18:24,001 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:18:24,332 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:18:24,332 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:18:25,341 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:18:25,341 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:18:25,401 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 48, Asks: 5
+2025-08-23 14:18:25,739 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 48
+2025-08-23 14:22:35,850 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:22:45,013 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:22:54,003 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:22:54,004 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:22:54,116 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:22:54,116 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:22:54,116 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:22:54,227 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:22:54,228 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:22:54,228 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:22:54,229 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:22:54,230 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:22:54,231 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:22:54,545 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:22:54,546 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:22:55,556 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:22:55,559 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:22:55,603 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 45
+2025-08-23 14:22:59,280 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 23028521999247191382509592533623778873794992301540637683293130012707749906822
+2025-08-23 14:22:59,280 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 45, Asks: 5
+2025-08-23 14:22:59,605 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 18236860205096648924255810333552644736852025502883090810962553754640110683785
+2025-08-23 14:22:59,607 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:22:59,607 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:16,867 - src.websocket_client - INFO - Trade executed - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Side: BUY, Price: 0.95, Size: 181.7
+2025-08-23 14:23:16,867 - __main__ - INFO - Trade executed for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785: BUY 181.7 at 0.95
+2025-08-23 14:23:16,868 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 46
+2025-08-23 14:23:17,175 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 23028521999247191382509592533623778873794992301540637683293130012707749906822
+2025-08-23 14:23:17,175 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 46, Asks: 5
+2025-08-23 14:23:17,488 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 18236860205096648924255810333552644736852025502883090810962553754640110683785
+2025-08-23 14:23:17,489 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:17,489 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:17,490 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:17,490 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:18,692 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:18,693 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:18,978 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:18,978 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:20,509 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:20,510 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:20,510 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:20,511 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:21,960 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:21,961 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:22,234 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:22,234 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,160 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:28,161 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:28,161 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,161 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,161 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,162 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:28,312 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,312 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:28,322 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:28,322 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,329 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:28,329 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:45,991 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:23:45,991 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:46,114 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:23:46,114 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:03,762 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:03,763 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:05,710 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:05,711 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:23,835 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:23,836 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:23,848 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:23,849 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:25,448 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:25,450 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:25,747 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:25,750 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,536 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,536 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:32,536 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,536 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,537 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:32,537 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:32,667 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,668 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:32,673 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,674 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:32,690 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:32,692 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:39,445 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:24:39,446 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:41,018 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:24:41,021 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:02,017 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:02,017 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:04,422 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:04,423 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:15,018 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:15,018 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:16,652 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:16,652 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:34,556 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:34,557 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:34,566 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:34,567 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:36,054 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:36,055 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:36,334 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:36,334 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:36,353 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:36,356 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:40,141 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:40,144 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:40,149 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:40,149 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:41,620 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:41,621 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:41,898 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:41,900 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:58,047 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:58,047 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:58,048 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:58,048 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:59,515 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:25:59,516 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:59,794 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:25:59,794 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:00,806 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:00,806 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:00,815 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:00,816 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:02,234 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:02,235 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:02,517 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:02,517 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:04,908 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:04,910 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:04,926 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:04,926 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:06,356 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:06,356 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:06,623 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:06,624 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,713 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:08,714 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,714 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,714 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:08,715 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:08,715 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,859 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:08,860 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,872 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,875 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:08,879 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:08,879 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:39,799 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:39,800 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:39,818 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:39,819 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:41,205 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:41,206 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:41,497 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:41,498 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:43,111 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:43,112 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:43,119 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:43,120 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:44,575 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:44,576 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:26:44,860 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:26:44,862 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:03,467 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:03,467 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:05,665 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:05,667 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,572 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,572 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,573 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,573 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,573 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,574 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,751 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,752 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,765 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:26,765 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,787 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:26,787 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:39,538 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:39,538 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:41,081 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:41,082 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:46,579 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:46,580 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:46,589 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:46,589 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:47,978 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:47,978 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:48,248 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:48,249 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:27:51,047 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:27:51,048 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:15,338 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:15,338 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:16,978 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:16,978 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:24,330 - src.websocket_client - INFO - Trade executed - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Side: SELL, Price: 0.94, Size: 2.22
+2025-08-23 14:28:24,331 - __main__ - INFO - Trade executed for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785: SELL 2.22 at 0.94
+2025-08-23 14:28:24,331 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 47, Asks: 5
+2025-08-23 14:28:24,645 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 18236860205096648924255810333552644736852025502883090810962553754640110683785
+2025-08-23 14:28:24,645 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 47
+2025-08-23 14:28:24,949 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 23028521999247191382509592533623778873794992301540637683293130012707749906822
+2025-08-23 14:28:36,497 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,497 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:36,497 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,498 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:36,498 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,498 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:36,626 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,627 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:36,669 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,671 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:36,672 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:36,673 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:57,203 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:57,203 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:57,215 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:57,216 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:58,760 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:28:58,762 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:59,097 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:28:59,097 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:02,850 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:02,852 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:02,861 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:02,862 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:04,299 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:04,300 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:04,595 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:04,596 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,177 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,177 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:09,178 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,178 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:09,178 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,179 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:09,307 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:09,307 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,312 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,312 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:09,323 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:09,323 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:20,614 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:20,615 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:20,634 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:20,638 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:22,080 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:22,081 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:22,349 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:22,349 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:23,335 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:23,335 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:23,370 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:23,371 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:24,724 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:29:24,726 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:25,002 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:29:25,002 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:30:01,948 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:30:11,252 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:30:20,314 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:30:20,315 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:30:20,476 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:30:20,477 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:30:20,477 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:30:20,595 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:30:20,595 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:30:20,595 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:30:20,596 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:30:20,596 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:30:20,597 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:30:20,879 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:30:20,880 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:30:21,887 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:30:21,887 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:30:21,965 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 47
+2025-08-23 14:30:22,084 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 23028521999247191382509592533623778873794992301540637683293130012707749906822
+2025-08-23 14:30:22,084 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 47, Asks: 5
+2025-08-23 14:30:22,203 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 18236860205096648924255810333552644736852025502883090810962553754640110683785
+2025-08-23 14:30:24,382 - __main__ - INFO - Received signal 2
+2025-08-23 14:30:24,382 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 14:30:24,383 - __main__ - INFO - Stopping Polymarket Market Maker...
+2025-08-23 14:30:24,447 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 14:30:24,550 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 14:30:24,551 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 14:30:24,551 - src.websocket_client - INFO - WebSocket connection closed
+2025-08-23 14:30:24,552 - src.database - INFO - Disconnected from MongoDB
+2025-08-23 14:30:24,552 - __main__ - INFO - Polymarket Market Maker stopped
+2025-08-23 14:31:37,442 - __main__ - INFO - Starting Polymarket Market Maker...
+2025-08-23 14:31:46,553 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:31:55,588 - src.database - INFO - Connected to MongoDB: mongodb+srv://doadmin:Vexhg8o7S1529O60@db-mongodb-nyc3-28325-45b2dd72.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-28325
+2025-08-23 14:31:55,591 - src.market_monitor - INFO - Initialized CLOB Client in read-only mode
+2025-08-23 14:31:55,716 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:31:55,717 - src.market_monitor - INFO - Refreshed 1 monitored markets
+2025-08-23 14:31:55,717 - src.market_monitor - INFO - MarketMonitor initialized with 1 markets
+2025-08-23 14:31:55,825 - src.database - INFO - Found 1 monitored markets
+2025-08-23 14:31:55,825 - __main__ - INFO - Found 2 unique token IDs from 1 monitored markets
+2025-08-23 14:31:55,825 - __main__ - INFO - Monitoring 2 assets
+2025-08-23 14:31:55,826 - __main__ - INFO - Using CLOB client API credentials for WebSocket
+2025-08-23 14:31:55,827 - src.websocket_client - INFO - Attempting to connect (attempt 1/10)
+2025-08-23 14:31:55,827 - src.websocket_client - INFO - Connecting to WebSocket: wss://ws-subscriptions-clob.polymarket.com/ws/market
+2025-08-23 14:31:56,131 - src.websocket_client - INFO - Connected to Polymarket WebSocket
+2025-08-23 14:31:56,131 - src.websocket_client - WARNING - API credentials not provided, skipping authentication
+2025-08-23 14:31:57,139 - src.websocket_client - INFO - Subscribed to market channel for 2 assets: ['23028521999247191382509592533623778873794992301540637683293130012707749906822', '18236860205096648924255810333552644736852025502883090810962553754640110683785']...
+2025-08-23 14:31:57,140 - src.websocket_client - INFO - Starting WebSocket message listener
+2025-08-23 14:31:57,191 - src.websocket_client - INFO - Book snapshot - Asset: 18236860205096648924255810333552644736852025502883090810962553754640110683785, Bids: 49, Asks: 5
+2025-08-23 14:31:57,498 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 18236860205096648924255810333552644736852025502883090810962553754640110683785
+2025-08-23 14:31:57,499 - src.websocket_client - INFO - Book snapshot - Asset: 23028521999247191382509592533623778873794992301540637683293130012707749906822, Bids: 5, Asks: 49
+2025-08-23 14:31:57,805 - __main__ - INFO - Stored book snapshot for market 0xb2fc36d5f9bd808e7e1c65b21da9f69cb112541d3b403034f66b0004e38172ea, asset 23028521999247191382509592533623778873794992301540637683293130012707749906822
+2025-08-23 14:32:20,036 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,038 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,041 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,042 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,482 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,484 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,485 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,485 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,486 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,487 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,635 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,635 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,654 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,655 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:20,660 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:20,661 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:21,475 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:21,475 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:21,761 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:21,761 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:25,676 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:25,677 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:25,694 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:25,694 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:27,145 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:27,146 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1
+2025-08-23 14:32:27,426 - __main__ - INFO - Price change event for asset 18236860205096648924255810333552644736852025502883090810962553754640110683785, changes: 1
+2025-08-23 14:32:27,426 - __main__ - INFO - Price change event for asset 23028521999247191382509592533623778873794992301540637683293130012707749906822, changes: 1

@@ -1,10 +1,12 @@
 import asyncio
 import logging
 import json
+import os
 from typing import Dict, List, Set, Any, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from py_clob_client.client import ClobClient
 from py_clob_client.constants import POLYGON
+from py_clob_client.clob_types import BookParams
 from src.database import db_client
 from src.config import config
 
@@ -17,23 +19,39 @@ class MarketMonitor:
         self.clob_client: Optional[ClobClient] = None
         self.running = False
         
-    async def initialize(self):
+    async def initialize(self, private_key: str = None):
         """Initialize the market monitor"""
         try:
             # Connect to database
             if not db_client.connect():
                 raise Exception("Failed to connect to database")
             
-            # Initialize Clob Client
-            if config.POLYMARKET_API_KEY:
+            # Initialize CLOB Client using the correct pattern from test_buy_order.py
+            private_key = private_key or os.getenv('WALLET_PRIVATE_KEY')
+            funder_address = os.getenv('POLYMARKET_FUNDER')
+            
+            if private_key:
+                # Initialize with Level 1 auth (private key)
                 self.clob_client = ClobClient(
                     host="https://clob.polymarket.com",
-                    key=config.POLYMARKET_API_KEY,
-                    chain_id=POLYGON
+                    chain_id=POLYGON,
+                    key=private_key,
+                    signature_type=2,
+                    funder=funder_address
                 )
-                logger.info("Initialized Clob Client with API credentials")
+                
+                # Generate and set API credentials for Level 2 auth
+                try:
+                    api_creds = self.clob_client.create_or_derive_api_creds()
+                    self.clob_client.set_api_creds(api_creds)
+                    logger.info(f"Initialized CLOB Client with Level 2 auth - API Key: {api_creds.api_key}")
+                except Exception as e:
+                    logger.warning(f"Failed to set API credentials: {e}")
+                    logger.info("CLOB Client initialized with Level 1 auth only")
             else:
-                logger.warning("API credentials not provided, running in read-only mode")
+                # Initialize without authentication for read-only access
+                self.clob_client = ClobClient(host="https://clob.polymarket.com")
+                logger.info("Initialized CLOB Client in read-only mode")
                 
             # Load monitored markets
             await self.refresh_monitored_markets()
@@ -68,6 +86,39 @@ class MarketMonitor:
             
         except Exception as e:
             logger.error(f"Error refreshing monitored markets: {e}")
+    
+    async def get_market_data_from_clob(self, token_id: str) -> Optional[Dict[str, Any]]:
+        """Get comprehensive market data using CLOB client methods"""
+        try:
+            if not self.clob_client:
+                logger.error("CLOB client not initialized")
+                return None
+            
+            # Get market data using the correct methods from test_buy_order.py
+            midpoint = self.clob_client.get_midpoint(token_id)
+            buy_price = self.clob_client.get_price(token_id, side="BUY")
+            sell_price = self.clob_client.get_price(token_id, side="SELL")
+            orderbook = self.clob_client.get_order_book(token_id)
+            
+            # Get detailed orderbook
+            detailed_books = self.clob_client.get_order_books([BookParams(token_id=token_id)])
+            
+            market_data = {
+                'token_id': token_id,
+                'midpoint': midpoint,
+                'buy_price': buy_price,
+                'sell_price': sell_price,
+                'orderbook': orderbook,
+                'detailed_books': detailed_books,
+                'last_updated': datetime.now(timezone.utc).isoformat()
+            }
+            
+            logger.debug(f"Retrieved market data for token {token_id}")
+            return market_data
+            
+        except Exception as e:
+            logger.error(f"Error getting market data for token {token_id}: {e}")
+            return None
     
     def extract_asset_ids_from_market(self, market: Dict[str, Any]) -> List[str]:
         """Extract asset IDs from market data for WebSocket subscription"""
@@ -134,7 +185,7 @@ class MarketMonitor:
         except Exception as e:
             logger.error(f"Error subscribing to market books: {e}")
     
-    def handle_book_update(self, message: Dict[str, Any], market_to_assets: Dict[str, List[str]]):
+    async def handle_book_update(self, message: Dict[str, Any], market_to_assets: Dict[str, List[str]]):
         """Handle incoming book update from WebSocket"""
         try:
             asset_id = message.get('asset_id')
@@ -152,22 +203,37 @@ class MarketMonitor:
                 logger.warning(f"Received book update for unknown asset: {asset_id}")
                 return
             
-            # Extract book data
-            book_data = {
-                'bids': message.get('bids', []),
-                'asks': message.get('asks', []),
-                'spread': message.get('spread'),
-                'mid_price': message.get('mid_price'),
-                'last_updated': message.get('timestamp', datetime.utcnow().isoformat())
-            }
+            # Get fresh market data using CLOB client
+            market_data = await self.get_market_data_from_clob(asset_id)
+            if not market_data:
+                logger.error(f"Failed to get market data for asset {asset_id}")
+                return
             
-            # Store in database
-            success = db_client.store_book_data(market_id, asset_id, book_data)
-            
-            if success:
-                logger.debug(f"Stored book data for market {market_id}, asset {asset_id}")
+            # Extract book data from OrderBookSummary object
+            orderbook = market_data.get('orderbook')
+            if orderbook:
+                # Convert OrderBookSummary to dict for storage
+                book_data = {
+                    'bids': [{'price': bid.price, 'size': bid.size} for bid in (orderbook.bids or [])],
+                    'asks': [{'price': ask.price, 'size': ask.size} for ask in (orderbook.asks or [])],
+                    'midpoint': market_data.get('midpoint'),
+                    'buy_price': market_data.get('buy_price'),
+                    'sell_price': market_data.get('sell_price'),
+                    'min_order_size': orderbook.min_order_size,
+                    'tick_size': orderbook.tick_size,
+                    'asset_id': orderbook.asset_id,
+                    'last_updated': market_data.get('last_updated')
+                }
+                
+                # Store in database
+                success = db_client.store_book_data(market_id, asset_id, book_data)
+                
+                if success:
+                    logger.debug(f"Stored book data for market {market_id}, asset {asset_id}")
+                else:
+                    logger.error(f"Failed to store book data for market {market_id}, asset {asset_id}")
             else:
-                logger.error(f"Failed to store book data for market {market_id}, asset {asset_id}")
+                logger.warning(f"No orderbook data available for asset {asset_id}")
                 
         except Exception as e:
             logger.error(f"Error handling book update: {e}")

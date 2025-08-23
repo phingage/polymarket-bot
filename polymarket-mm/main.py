@@ -4,8 +4,9 @@ import asyncio
 import logging
 import signal
 import sys
-from typing import Dict, Any, List
-from datetime import datetime
+import os
+from typing import Dict, Any, List, Optional
+from datetime import datetime, timezone
 
 from src.config import config
 from src.database import db_client
@@ -29,18 +30,46 @@ class PolymarketMarketMaker:
         self.running = False
         self.tasks = []
         
-    async def book_message_handler(self, message: Dict[str, Any]):
-        """Handle book updates from WebSocket"""
+    async def main_message_handler(self, message: Dict[str, Any]):
+        """Main message handler that routes to specific handlers based on event_type"""
         try:
-            asset_id = message.get('asset_id')
-            if not asset_id:
+            event_type = message.get('event_type')
+            
+            if not event_type:
+                logger.warning("No event_type in message")
                 return
             
-            # Find market ID for this asset
-            market_id = await self.find_market_for_asset(asset_id)
-            if not market_id:
-                logger.warning(f"No market found for asset {asset_id}")
+            # Route to appropriate handler based on event_type
+            if event_type == 'book':
+                await self.book_message_handler(message)
+            elif event_type == 'price_change':
+                await self.price_change_message_handler(message)
+            elif event_type == 'tick_size_change':
+                await self.tick_size_change_message_handler(message)
+            elif event_type == 'last_trade_price':
+                await self.last_trade_price_message_handler(message)
+            else:
+                logger.warning(f"Unknown event_type: {event_type}")
+                
+        except Exception as e:
+            logger.error(f"Error in main message handler: {e}")
+    
+    async def book_message_handler(self, message: Dict[str, Any]):
+        """Handle book event - full orderbook snapshot"""
+        try:
+            asset_id = message.get('asset_id')
+            condition_id = message.get('market')  # The conditionId is in the 'market' field
+            
+            if not asset_id:
+                logger.warning("No asset_id in book message")
                 return
+            
+            if not condition_id:
+                logger.warning(f"No conditionId (market field) in book message for asset {asset_id}")
+                return
+            
+            # Use conditionId as market identifier
+            market_id = condition_id
             
             # Extract book data
             book_data = {
@@ -48,21 +77,70 @@ class PolymarketMarketMaker:
                 'asks': message.get('asks', []),
                 'spread': message.get('spread'),
                 'mid_price': self.calculate_mid_price(message.get('bids', []), message.get('asks', [])),
-                'timestamp': message.get('timestamp', datetime.utcnow().isoformat()),
+                'timestamp': message.get('timestamp', datetime.now(timezone.utc).isoformat()),
                 'sequence': message.get('sequence'),
-                'last_update_id': message.get('last_update_id')
+                'last_update_id': message.get('last_update_id'),
+                'hash': message.get('hash')
             }
             
             # Store book data
             success = db_client.store_book_data(market_id, asset_id, book_data)
             
             if success:
-                logger.debug(f"Stored book data for market {market_id}, asset {asset_id}")
+                logger.info(f"Stored book snapshot for market {market_id}, asset {asset_id}")
             else:
                 logger.error(f"Failed to store book data for market {market_id}, asset {asset_id}")
                 
         except Exception as e:
             logger.error(f"Error in book message handler: {e}")
+    
+    async def price_change_message_handler(self, message: Dict[str, Any]):
+        """Handle price_change event - order book updates"""
+        try:
+            asset_id = message.get('asset_id')
+            condition_id = message.get('market')
+            changes = message.get('changes', [])
+            
+            logger.info(f"Price change event for asset {asset_id}, changes: {len(changes)}")
+            
+            # TODO: Implement price change handling logic
+            # For now, just log the event
+            
+        except Exception as e:
+            logger.error(f"Error in price change message handler: {e}")
+    
+    async def tick_size_change_message_handler(self, message: Dict[str, Any]):
+        """Handle tick_size_change event"""
+        try:
+            asset_id = message.get('asset_id')
+            condition_id = message.get('market')
+            old_tick_size = message.get('old_tick_size')
+            new_tick_size = message.get('new_tick_size')
+            
+            logger.info(f"Tick size change for asset {asset_id}: {old_tick_size} -> {new_tick_size}")
+            
+            # TODO: Implement tick size change handling logic
+            # For now, just log the event
+            
+        except Exception as e:
+            logger.error(f"Error in tick size change message handler: {e}")
+    
+    async def last_trade_price_message_handler(self, message: Dict[str, Any]):
+        """Handle last_trade_price event - trade execution"""
+        try:
+            asset_id = message.get('asset_id')
+            condition_id = message.get('market')
+            price = message.get('price')
+            side = message.get('side')
+            size = message.get('size')
+            
+            logger.info(f"Trade executed for asset {asset_id}: {side} {size} at {price}")
+            
+            # TODO: Implement trade handling logic
+            # For now, just log the event
+            
+        except Exception as e:
+            logger.error(f"Error in last trade price message handler: {e}")
     
     def calculate_mid_price(self, bids: List, asks: List) -> float:
         """Calculate mid price from bids and asks"""
@@ -81,12 +159,36 @@ class PolymarketMarketMaker:
         except (ValueError, IndexError, KeyError):
             return 0.0
     
-    async def find_market_for_asset(self, asset_id: str) -> str:
-        """Find market ID for given asset ID"""
-        # This would need to be implemented based on how asset IDs
-        # map to market IDs in your system
-        # For now, return a placeholder
-        return f"market_for_{asset_id}"
+    async def find_market_for_asset(self, asset_id: str, condition_id: str = None) -> Optional[str]:
+        """Find market conditionId for given asset ID by searching MongoDB"""
+        try:
+            if condition_id:
+                # If we already have the conditionId from the message, use it
+                return condition_id
+            
+            # Search in monitored markets for this asset_id
+            markets = db_client.get_monitored_markets()
+            
+            for market in markets:
+                # Check if this market contains the asset_id in its clobTokenIds
+                clob_token_ids_str = market.get('clobTokenIds')
+                if clob_token_ids_str:
+                    try:
+                        import json
+                        clob_token_ids = json.loads(clob_token_ids_str)
+                        
+                        if isinstance(clob_token_ids, list) and asset_id in [str(token_id) for token_id in clob_token_ids]:
+                            # Return the conditionId for this market
+                            return market.get('conditionId')
+                    except json.JSONDecodeError:
+                        continue
+            
+            logger.warning(f"No market found for asset_id {asset_id}")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error finding market for asset {asset_id}: {e}")
+            return None
     
     async def get_all_monitored_asset_ids(self) -> List[str]:
         """Get all asset IDs from monitored markets"""
@@ -95,22 +197,34 @@ class PolymarketMarketMaker:
             asset_ids = []
             
             for market in markets:
-                clob_rewards = market.get('clobRewards', [])
-                for reward in clob_rewards:
-                    if 'asset_id' in reward:
-                        asset_ids.append(reward['asset_id'])
-                
-                # If no asset IDs in rewards, try to extract from market structure
-                # This might need adjustment based on actual data structure
-                if not clob_rewards and 'id' in market:
-                    # Placeholder: derive asset ID from market ID
-                    # Real implementation would depend on Polymarket's ID system
-                    market_id = market['id']
-                    # This is a placeholder - actual asset ID extraction needed
-                    logger.warning(f"No asset IDs found for market {market_id}")
+                # Extract token IDs from clobTokenIds field
+                clob_token_ids_str = market.get('clobTokenIds')
+                if clob_token_ids_str:
+                    try:
+                        # Parse the JSON string array
+                        import json
+                        clob_token_ids = json.loads(clob_token_ids_str)
+                        
+                        # Each market has 2 token IDs for Yes and No outcomes
+                        if isinstance(clob_token_ids, list):
+                            for token_id in clob_token_ids:
+                                if token_id:  # Make sure token ID is not empty
+                                    asset_ids.append(str(token_id))
+                            
+                            logger.debug(f"Market {market.get('id', 'unknown')} has {len(clob_token_ids)} token IDs: {clob_token_ids}")
+                        else:
+                            logger.warning(f"clobTokenIds is not a list for market {market.get('id', 'unknown')}: {clob_token_ids}")
+                    
+                    except json.JSONDecodeError as e:
+                        logger.error(f"Failed to parse clobTokenIds for market {market.get('id', 'unknown')}: {e}")
+                    except Exception as e:
+                        logger.error(f"Error processing clobTokenIds for market {market.get('id', 'unknown')}: {e}")
+                else:
+                    logger.warning(f"No clobTokenIds found for market {market.get('id', 'unknown')}")
             
-            logger.info(f"Found {len(asset_ids)} asset IDs from {len(markets)} monitored markets")
-            return list(set(asset_ids))  # Remove duplicates
+            unique_asset_ids = list(set(asset_ids))  # Remove duplicates
+            logger.info(f"Found {len(unique_asset_ids)} unique token IDs from {len(markets)} monitored markets")
+            return unique_asset_ids
             
         except Exception as e:
             logger.error(f"Error getting monitored asset IDs: {e}")
@@ -143,6 +257,12 @@ class PolymarketMarketMaker:
                 logger.error("Failed to connect to database")
                 return False
             
+            # Initialize market monitor with proper CLOB client
+            private_key = os.getenv('WALLET_PRIVATE_KEY')
+            if not await market_monitor.initialize(private_key):
+                logger.error("Failed to initialize market monitor")
+                return False
+            
             # Get all asset IDs to monitor
             asset_ids = await self.get_all_monitored_asset_ids()
             
@@ -156,11 +276,21 @@ class PolymarketMarketMaker:
             cleanup_task = asyncio.create_task(self.periodic_cleanup())
             self.tasks.append(cleanup_task)
             
+            # Get API credentials from market monitor's CLOB client
+            api_creds = None
+            if market_monitor.clob_client:
+                try:
+                    # The API credentials should already be set in the client
+                    logger.info("Using CLOB client API credentials for WebSocket")
+                except Exception as e:
+                    logger.warning(f"Could not get API credentials: {e}")
+            
             # Start WebSocket client with reconnection loop
             websocket_task = asyncio.create_task(
                 websocket_client.reconnect_loop(
                     asset_ids, 
-                    self.book_message_handler,
+                    self.main_message_handler,
+                    api_creds=api_creds,
                     max_retries=10
                 )
             )

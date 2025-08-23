@@ -13,8 +13,6 @@ class Config(BaseSettings):
     
     # Polymarket API Configuration
     POLYMARKET_API_KEY: str = os.getenv("POLYMARKET_API_KEY", "")
-    POLYMARKET_SECRET: str = os.getenv("POLYMARKET_SECRET", "")
-    POLYMARKET_PASSPHRASE: str = os.getenv("POLYMARKET_PASSPHRASE", "")
     
     # WebSocket Configuration
     POLYMARKET_WSS_URL: str = os.getenv("POLYMARKET_WSS_URL", "wss://ws-subscriptions-clob.polymarket.com/ws/")
