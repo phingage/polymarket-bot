@@ -20,5 +20,6 @@ class Config(BaseSettings):
     # Application Configuration
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
     UPDATE_INTERVAL: int = int(os.getenv("UPDATE_INTERVAL", "1"))
+    MARKET_CHECK_INTERVAL: int = int(os.getenv("MARKET_CHECK_INTERVAL", "300"))  # Default 5 minutes
 
 config = Config()

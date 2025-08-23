@@ -141,7 +141,7 @@ class PolymarketMarketMaker:
             
         except Exception as e:
             logger.error(f"Error in last trade price message handler: {e}")
-    
+   
     def calculate_mid_price(self, bids: List, asks: List) -> float:
         """Calculate mid price from bids and asks"""
         try:
@@ -246,6 +246,52 @@ class PolymarketMarketMaker:
             except Exception as e:
                 logger.error(f"Error in periodic cleanup: {e}")
     
+    async def periodic_market_check(self):
+        """Periodic check for new markets to monitor and update WebSocket subscriptions"""
+        while self.running:
+            try:
+                # Wait configured interval between checks
+                await asyncio.sleep(config.MARKET_CHECK_INTERVAL)
+                
+                # Get current monitored asset IDs
+                new_asset_ids = await self.get_all_monitored_asset_ids()
+                
+                if not new_asset_ids:
+                    logger.warning("No monitored asset IDs found during periodic check")
+                    continue
+                
+                # Check if we have WebSocket client and if asset IDs have changed
+                current_subscriptions = getattr(websocket_client, 'subscriptions', {}).get('market', [])
+                
+                # Compare current subscriptions with new asset IDs
+                if set(new_asset_ids) != set(current_subscriptions):
+                    added_assets = set(new_asset_ids) - set(current_subscriptions)
+                    removed_assets = set(current_subscriptions) - set(new_asset_ids)
+                    
+                    logger.info(f"Market changes detected - Added: {len(added_assets)}, Removed: {len(removed_assets)}")
+                    
+                    if added_assets:
+                        logger.info(f"New assets to monitor: {list(added_assets)[:5]}...")
+                    if removed_assets:
+                        logger.info(f"Assets no longer monitored: {list(removed_assets)[:5]}...")
+                    
+                    # Update WebSocket subscriptions with new asset list by reconnecting
+                    try:
+                        success = await websocket_client.update_market_subscriptions(new_asset_ids)
+                        if success:
+                            logger.info(f"Successfully reinitialized WebSocket with {len(new_asset_ids)} assets")
+                        else:
+                            logger.error("Failed to reinitialize WebSocket with new assets")
+                    except Exception as e:
+                        logger.error(f"Failed to update WebSocket subscriptions: {e}")
+                else:
+                    logger.debug(f"No changes in monitored markets ({len(new_asset_ids)} assets)")
+                
+            except asyncio.CancelledError:
+                break
+            except Exception as e:
+                logger.error(f"Error in periodic market check: {e}")
+    
     async def start(self):
         """Start the market maker"""
         try:
@@ -275,6 +321,10 @@ class PolymarketMarketMaker:
             # Start periodic cleanup task
             cleanup_task = asyncio.create_task(self.periodic_cleanup())
             self.tasks.append(cleanup_task)
+            
+            # Start periodic market check task
+            market_check_task = asyncio.create_task(self.periodic_market_check())
+            self.tasks.append(market_check_task)
             
             # Get API credentials from market monitor's CLOB client
             api_creds = None

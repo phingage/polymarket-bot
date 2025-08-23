@@ -75,9 +75,30 @@ class PolymarketWebSocketClient:
             logger.error(f"Authentication failed: {e}")
             return False
     
+    async def unsubscribe_from_market_channel(self) -> bool:
+        """Unsubscribe from all market channels"""
+        try:
+            # Send unsubscribe message (format may vary based on Polymarket API)
+            unsubscribe_message = {
+                "type": "unsubscribe",
+                "channel": "market"
+            }
+            
+            await self.send_message(unsubscribe_message)
+            logger.info("Sent unsubscribe message for market channel")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to unsubscribe from market channel: {e}")
+            return False
+    
     async def subscribe_to_market_channel(self, asset_ids: List[str]) -> bool:
         """Subscribe to market channel for specific asset IDs"""
         try:
+            if not asset_ids:
+                logger.warning("No asset IDs provided for subscription")
+                return False
+            
             # Use the correct format from Polymarket documentation
             subscription_message = {
                 "assets_ids": asset_ids,  # Note: assets_ids not asset_ids
@@ -87,13 +108,72 @@ class PolymarketWebSocketClient:
             await self.send_message(subscription_message)
             
             # Store subscription info
-            self.subscriptions["market"] = asset_ids
+            self.subscriptions["market"] = asset_ids.copy()  # Store a copy of the list
             
             logger.info(f"Subscribed to market channel for {len(asset_ids)} assets: {asset_ids[:5]}...")
             return True
             
         except Exception as e:
             logger.error(f"Failed to subscribe to market channel: {e}")
+            return False
+    
+    async def update_market_subscriptions(self, new_asset_ids: List[str]) -> bool:
+        """Update market channel subscriptions with new asset list using hard reset"""
+        try:
+            if not new_asset_ids:
+                logger.warning("No asset IDs provided for subscription update")
+                return False
+            
+            logger.info(f"Forcing hard reset of WebSocket connection with {len(new_asset_ids)} assets")
+            
+            # Store the new asset list before reconnecting
+            self.subscriptions["market"] = new_asset_ids.copy()
+            
+            # Cancel ping task if running
+            if self.ping_task:
+                self.ping_task.cancel()
+                try:
+                    await self.ping_task
+                except asyncio.CancelledError:
+                    pass
+                self.ping_task = None
+            
+            # Close current connection forcefully
+            if self.websocket:
+                try:
+                    await self.websocket.close()
+                except Exception as e:
+                    logger.debug(f"Error closing WebSocket: {e}")
+                self.websocket = None
+            
+            # Stop current connection
+            old_running = self.running
+            self.running = False
+            
+            # Delay to ensure clean shutdown
+            await asyncio.sleep(2)
+            
+            # Reconnect with new asset list
+            logger.info("Attempting to reconnect WebSocket...")
+            if await self.connect():
+                self.running = old_running  # Restore running state
+                
+                # Subscribe to new asset list
+                logger.info(f"Subscribing to {len(new_asset_ids)} assets after reconnection")
+                success = await self.subscribe_to_market_channel(new_asset_ids)
+                
+                if success:
+                    logger.info(f"Successfully reinitialized WebSocket with {len(new_asset_ids)} assets")
+                    return True
+                else:
+                    logger.error("Failed to subscribe after reconnection")
+                    return False
+            else:
+                logger.error("Failed to reconnect WebSocket")
+                return False
+            
+        except Exception as e:
+            logger.error(f"Error updating market subscriptions: {e}")
             return False
     
     async def send_message(self, message: Dict[str, Any]):
