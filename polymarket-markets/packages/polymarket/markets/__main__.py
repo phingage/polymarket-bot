@@ -1,6 +1,7 @@
 import os
 import requests
 from pymongo import MongoClient
+from datetime import datetime, timezone
 
 def fetch_all_markets():
     """Recupera tutti i mercati attivi con paginazione"""
@@ -42,7 +43,7 @@ def fetch_all_markets():
     return all_markets
 
 def main(args):
-    mongo_uri = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
+    mongo_uri = os.environ.get("MONGO_URI")
     mongo_db = os.environ.get("MONGO_DB", "polymarket")
     mongo_collection = os.environ.get("MONGO_COLLECTION", "markets")
 
@@ -56,10 +57,52 @@ def main(args):
     except Exception as e:
         return {"body": f"Errore nel recupero mercati: {str(e)}"}
 
-    # Salva i mercati su MongoDB
+    # Salva i mercati su MongoDB usando upsert basato su id
     if markets:
-        collection.delete_many({})  # Pulisce la collezione prima di inserire
-        collection.insert_many(markets)
-        return {"body": f"Salvati {len(markets)} mercati attivi su MongoDB"}
+        # Estrai tutti gli ID dai mercati dell'API
+        api_market_ids = []
+        for market in markets:
+            market_id = market.get('id')
+            if market_id:
+                api_market_ids.append(market_id)
+        
+        print(f"Mercati dall'API: {len(api_market_ids)} ID validi")
+        
+        # Elimina i mercati che non sono più presenti nell'API (non attivi)
+        if api_market_ids:
+            delete_result = collection.delete_many({
+                "id": {"$nin": api_market_ids}  # Elimina documenti con id non contenuto nella lista
+            })
+            deleted_count = delete_result.deleted_count
+            print(f"Eliminati {deleted_count} mercati non più attivi")
+        else:
+            deleted_count = 0
+        
+        # Processa i mercati dall'API
+        updated_count = 0
+        inserted_count = 0
+        
+        for market in markets:
+            market_id = market.get('id')
+            if not market_id:
+                print(f"Mercato senza id trovato, saltato: {market}")
+                continue
+            
+            # Aggiungi timestamp di inserimento/aggiornamento
+            market["lastUpdateAt"] = datetime.now(timezone.utc)
+            
+            # Usa upsert con $set per aggiornare solo i campi presenti, preservando quelli esistenti
+            result = collection.update_one(
+                {"id": market_id},  # Filter by id
+                {"$set": market},  # Update only the fields present in market data
+                upsert=True  # Create if doesn't exist
+            )
+            
+            if result.upserted_id:
+                inserted_count += 1
+            else:
+                updated_count += 1
+        
+        return {"body": f"Processati {len(markets)} mercati: {inserted_count} inseriti, {updated_count} aggiornati, {deleted_count} eliminati"}
     else:
         return {"body": "Nessun mercato attivo trovato"}
